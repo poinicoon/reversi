@@ -26,10 +26,13 @@ field_size = np.array([8, 8])  # type: np.ndarray
 fields = []  # type: [np.ndarray]
 coords = []  # type: [np.ndarray]
 
-epoch = 10  # type: int
+epoch = 5  # type: int
 
 for i in range(epoch):
     winner, fields, coords = play_game(field_size, fields, coords)
+
+if not os.path.isdir(work_dir):
+    os.mkdir(work_dir)
 
 np.save(work_dir + os.sep + "datasets_x.npy", fields)
 np.save(work_dir + os.sep + "datasets_y.npy", coords)

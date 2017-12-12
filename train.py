@@ -46,10 +46,10 @@ class Train:
 
     def make_model(self):
         model = Sequential()
-        model.add(InputLayer(input_shape=(3, 8, 8)))
-        model.add(Conv2D(64, (3, 3), padding='same', data_format='channels_first'))
-        model.add(Conv2D(32, (3, 3), padding='same', data_format='channels_first'))
-        model.add(Conv2D(1, (3, 3), padding='same', data_format='channels_first'))
+        model.add(InputLayer(input_shape=(8, 8, 3)))
+        model.add(Conv2D(64, (3, 3), padding='same', data_format='channels_last'))
+        model.add(Conv2D(32, (3, 3), padding='same', data_format='channels_last'))
+        model.add(Conv2D(3, (3, 3), padding='same', data_format='channels_last'))
         # softmax
         model.add(Activation('relu'))
         model.add(BatchNormalization())
@@ -79,7 +79,7 @@ class Train:
         batch_size = 128
         epochs = 20
 
-        model.compile(loss='categorical_crossentropy',
+        model.compile(loss='mean_squared_error',
                       optimizer=SGD(),
                       metrics=['accuracy'])
 
