@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def get_next_player(player_num: int) -> int:
+def GetNextPlayer(player_num: int) -> int:
     if player_num == 0:
         return 1
     elif player_num == 1:
@@ -12,7 +12,7 @@ def get_next_player(player_num: int) -> int:
         return -1
 
 
-def get_corner_coord(field_size: np.ndarray, corner_num: int) -> np.ndarray:
+def GetCornerCoord(field_size: np.ndarray, corner_num: int) -> np.ndarray:
     if corner_num == 0:
         return np.array([0, 0], dtype="int32")
     elif corner_num == 1:
@@ -25,7 +25,7 @@ def get_corner_coord(field_size: np.ndarray, corner_num: int) -> np.ndarray:
         return np.array([-1, -1], dtype="int32")
 
 
-def get_center_coord(field_size: np.ndarray, center_num: int) -> np.ndarray:
+def GetCenterCoord(field_size: np.ndarray, center_num: int) -> np.ndarray:
     if center_num == 0:
         return np.array([field_size[0] / 2 - 1, field_size[1] / 2 - 1], dtype="int32")
     elif center_num == 1:
@@ -38,7 +38,7 @@ def get_center_coord(field_size: np.ndarray, center_num: int) -> np.ndarray:
         return np.array([-1, -1], dtype="int32")
 
 
-def get_vector(direc_num: int, move_size: int) -> np.ndarray:
+def GetVector(direc_num: int, move_size: int) -> np.ndarray:
     if direc_num == 0:
         return np.array([-move_size, -move_size], dtype="int32")
     elif direc_num == 1:
@@ -59,15 +59,15 @@ def get_vector(direc_num: int, move_size: int) -> np.ndarray:
         return np.array([0, 0], dtype="int32")
 
 
-def get_moved_coord(coord: np.ndarray, direc_num: int, move_size: int) -> np.ndarray:
-    return coord + get_vector(direc_num, move_size)
+def GetMovedCoord(coord: np.ndarray, direc_num: int, move_size: int) -> np.ndarray:
+    return coord + GetVector(direc_num, move_size)
 
 
-def is_coord_in_range(raw_field: np.ndarray, coord: np.ndarray) -> bool:
+def IsCoordInRange(raw_field: np.ndarray, coord: np.ndarray) -> bool:
     return bool(-1 < coord[0] < raw_field.shape[0] and -1 < coord[1] < raw_field.shape[1])
 
 
-def get_num_of_player_position(raw_field: np.ndarray, player_num: int) -> int:
+def GetNumOfPlayerPosition(raw_field: np.ndarray, player_num: int) -> int:
     sum = 0  # type: int
     for col in range(raw_field.shape[0]):
         for row in range(raw_field.shape[1]):
@@ -76,14 +76,14 @@ def get_num_of_player_position(raw_field: np.ndarray, player_num: int) -> int:
     return sum
 
 
-def is_empty_coord_exist(raw_field: np.ndarray) -> bool:
-    return bool(0 < get_num_of_player_position(raw_field, -1))
+def IsEmptyCoordExist(raw_field: np.ndarray) -> bool:
+    return bool(0 < GetNumOfPlayerPosition(raw_field, -1))
 
 
-def get_most_player_number(raw_field: np.ndarray) -> int:
+def GetMostPlayerNumber(raw_field: np.ndarray) -> int:
     num_of_pos = (
-        get_num_of_player_position(raw_field, 0),
-        get_num_of_player_position(raw_field, 1)
+        GetNumOfPlayerPosition(raw_field, 0),
+        GetNumOfPlayerPosition(raw_field, 1)
     )  # type: (int, int)
 
     if num_of_pos[1] < num_of_pos[0]:
@@ -94,8 +94,8 @@ def get_most_player_number(raw_field: np.ndarray) -> int:
         return 2
 
 
-def get_gettable_position_list(raw_field: np.ndarray, put_coord: np.ndarray, player_num: int) -> [np.ndarray]:
-    next_player_num = get_next_player(player_num)
+def GetGettablePositionList(raw_field: np.ndarray, put_coord: np.ndarray, player_num: int) -> [np.ndarray]:
+    next_player_num = GetNextPlayer(player_num)
     field_max = max(raw_field.shape)  # type: int
     gettable_pos_list = []  # type: [np.ndarray]
 
@@ -104,23 +104,23 @@ def get_gettable_position_list(raw_field: np.ndarray, put_coord: np.ndarray, pla
         return gettable_pos_list
 
     # coord is out of field
-    if not (is_coord_in_range(raw_field, put_coord)):
+    if not (IsCoordInRange(raw_field, put_coord)):
         return gettable_pos_list
 
     for direc_num in range(8):
-        tmp_coord = get_moved_coord(put_coord, direc_num, 1)  # type: np.ndarray
-        if not (is_coord_in_range(raw_field, tmp_coord)):
+        tmp_coord = GetMovedCoord(put_coord, direc_num, 1)  # type: np.ndarray
+        if not (IsCoordInRange(raw_field, tmp_coord)):
             continue
 
         # next position is not next player
-        tmp_coord = get_moved_coord(put_coord, direc_num, 1)
+        tmp_coord = GetMovedCoord(put_coord, direc_num, 1)
         if raw_field[tmp_coord[0], tmp_coord[1]] != next_player_num:
             continue
 
         for move_size in range(2, field_max):
-            tmp_coord = get_moved_coord(put_coord, direc_num, move_size)  # type: np.ndarray
+            tmp_coord = GetMovedCoord(put_coord, direc_num, move_size)  # type: np.ndarray
 
-            if not (is_coord_in_range(raw_field, tmp_coord)):
+            if not (IsCoordInRange(raw_field, tmp_coord)):
                 break
 
             if raw_field[tmp_coord[0], tmp_coord[1]] == next_player_num:
@@ -131,7 +131,7 @@ def get_gettable_position_list(raw_field: np.ndarray, put_coord: np.ndarray, pla
                     gettable_pos_list.append(put_coord)
 
                 for move_size2 in range(1, move_size + 1):
-                    tmp_coord = get_moved_coord(put_coord, direc_num, move_size2)
+                    tmp_coord = GetMovedCoord(put_coord, direc_num, move_size2)
                     gettable_pos_list.append(tmp_coord)
 
                 break
@@ -142,30 +142,30 @@ def get_gettable_position_list(raw_field: np.ndarray, put_coord: np.ndarray, pla
     return gettable_pos_list
 
 
-def get_num_of_gettable_position(raw_field: np.ndarray, coord: np.ndarray, player_num: int) -> int:
-    return len(get_gettable_position_list(raw_field, coord, player_num))
+def GetNumOfGettablePosition(raw_field: np.ndarray, coord: np.ndarray, player_num: int) -> int:
+    return len(GetGettablePositionList(raw_field, coord, player_num))
 
 
-def is_coord_valid(raw_field: np.ndarray, coord: np.ndarray, player_num: int) -> bool:
-    return bool(0 < get_num_of_gettable_position(raw_field, coord, player_num))
+def IsCoordValid(raw_field: np.ndarray, coord: np.ndarray, player_num: int) -> bool:
+    return bool(0 < GetNumOfGettablePosition(raw_field, coord, player_num))
 
 
-def is_puttable_coord_exist(raw_field: np.ndarray, player_num: int) -> bool:
+def IsPuttableCoordExist(raw_field: np.ndarray, player_num: int) -> bool:
     for col in range(raw_field.shape[0]):
         for row in range(raw_field.shape[1]):
-            if is_coord_valid(raw_field, np.array([col, row]), player_num):
+            if IsCoordValid(raw_field, np.array([col, row]), player_num):
                 return True
     return False
 
 
-def get_coord_3dim_onehot(field_size, coord, player_num):
+def GetCoord3dimOnehot(field_size, coord, player_num):
     tmp_coord = np.zeros([field_size[0], field_size[1], 3])
     tmp_coord[coord[0], coord[1], player_num + 1] = 1
 
     return tmp_coord
 
 
-def get_field_3dim_onehot(field: np.ndarray) -> np.ndarray:
+def GetField3dimOnehot(field: np.ndarray) -> np.ndarray:
     field3 = np.zeros([field.shape[0], field.shape[1], 3])
 
     for col in range(field.shape[0]):
@@ -180,22 +180,37 @@ def get_field_3dim_onehot(field: np.ndarray) -> np.ndarray:
     return field3
 
 
-def get_test_coord(field: np.ndarray) -> np.ndarray:
+def RestoreField(field: np.ndarray):
+    field2 = np.zeros([field.shape[0], field.shape[1]])
+
+    for col in range(field.shape[0]):
+        for row in range(field.shape[1]):
+            if field[col, row, 1] == 1:
+                field2[col, row] = 0
+            elif field[col, row, 2] == 1:
+                field2[col, row] = 1
+            else:
+                field2[col, row] = -1
+
+    return field2
+
+
+def GetTestCoord(field: np.ndarray) -> np.ndarray:
     coord = np.zeros([field.shape[0], field.shape[1], 3])
 
-    for col in field.shape[0]:
-        for row in field.shape[1]:
-            if is_coord_valid(field, np.array([col, row]), 0):
+    for col in range(field.shape[0]):
+        for row in range(field.shape[1]):
+            if IsCoordValid(RestoreField(field), np.array([col, row]), 0):
                 coord[col, row, 0] = 1
             else:
                 coord[col, row, 0] = -1
 
-            if is_coord_valid(field, np.array([col, row]), 1):
+            if IsCoordValid(RestoreField(field), np.array([col, row]), 1):
                 coord[col, row, 1] = 1
             else:
                 coord[col, row, 1] = -1
 
-            if is_coord_valid(field, np.array([col, row]), 2):
+            if IsCoordValid(RestoreField(field), np.array([col, row]), 2):
                 coord[col, row, 2] = 1
             else:
                 coord[col, row, 2] = -1
@@ -203,20 +218,20 @@ def get_test_coord(field: np.ndarray) -> np.ndarray:
     return coord
 
 
-def reverse_playernum_field(field: np.ndarray) -> np.ndarray:
+def ReversePlayernumField(field: np.ndarray) -> np.ndarray:
     field = np.empty(field.shape)
     for col in range(field.shape[0]):
         for row in range(field.shape[1]):
-            field[col, row] = get_next_player(field[col, row])
+            field[col, row] = GetNextPlayer(field[col, row])
     return field
 
 
-def draw_field(field: np.ndarray):
+def DrawField(field: np.ndarray):
     plt.imshow(field, cmap='gray', interpolation='none')
     plt.show()
 
 
-def print_field(raw_field: np.ndarray) -> None:
+def PrintField(raw_field: np.ndarray) -> None:
     print("Field")
     for col in range(raw_field.shape[0]):
         for row in range(raw_field.shape[1]):

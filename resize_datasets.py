@@ -3,7 +3,7 @@ import numpy as np
 filename_fields = "datasets/fields.npy"
 filename_coords = "datasets/coords.npy"
 
-num = 50000
+num = 5000
 
 fields = np.load(filename_fields)  # type: np.ndarray
 coords = np.load(filename_coords)  # type: np.ndarray

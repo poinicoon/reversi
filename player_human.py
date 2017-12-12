@@ -6,7 +6,7 @@ import funcs
 
 class PlayerHuman(player_base.PlayerBase):
     def execute_(self, raw_field: np.ndarray) -> np.ndarray:
-        funcs.print_field(raw_field)
+        funcs.PrintField(raw_field)
 
         print("Input col: ", end="")
         col = int(input())  # type: int

@@ -16,7 +16,7 @@ class Game:
     __datasets_coord = []  # type: [np.ndarray]
 
     def reverse_player(self) -> None:
-        self.__current_player_num = funcs.get_next_player(self.__current_player_num)
+        self.__current_player_num = funcs.GetNextPlayer(self.__current_player_num)
 
     def increment_turn(self) -> None:
         self.__num_of_turn += 1
@@ -45,14 +45,14 @@ class Game:
 
                 if put_result:
                     self.__players[self.__current_player_num].result_(True)
-                    self.__datasets_field.append(funcs.get_field_3dim_onehot(self.__field.get_raw_field()))
-                    self.__datasets_coord.append(funcs.get_coord_3dim_onehot(self.__field.get_field_size(), put_coord,
-                                                                             self.__current_player_num))
+                    self.__datasets_field.append(funcs.GetField3dimOnehot(self.__field.get_raw_field()))
+                    self.__datasets_coord.append(funcs.GetCoord3dimOnehot(self.__field.get_field_size(), put_coord,
+                                                                          self.__current_player_num))
                 else:
                     self.__players[self.__current_player_num].result_(False)
-                    self.__datasets_field.append(funcs.get_field_3dim_onehot(self.__field.get_raw_field()))
-                    self.__datasets_coord.append(funcs.get_coord_3dim_onehot(self.__field.get_field_size(), put_coord,
-                                                                             -1))
+                    self.__datasets_field.append(funcs.GetField3dimOnehot(self.__field.get_raw_field()))
+                    self.__datasets_coord.append(funcs.GetCoord3dimOnehot(self.__field.get_field_size(), put_coord,
+                                                                          -1))
 
             # 次のターン
             self.reverse_player()
