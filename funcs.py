@@ -3,10 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def generate_random(begin: int, end: int) -> int:
-    return round(random.uniform(begin, end - 1))
-
-
 def get_next_player(player_num: int) -> int:
     if player_num == 0:
         return 1
@@ -162,47 +158,49 @@ def is_puttable_coord_exist(raw_field: np.ndarray, player_num: int) -> bool:
     return False
 
 
-def normalize_min_max(value: int, min: int, max: int):
-    return int((value - min) / (max - min))
-
-
-def normalize_field(raw_field: np.ndarray) -> np.ndarray:
-    return (raw_field + 1) / 2
-
-
-def coord_to_num(field_size: np.ndarray, coord: np.ndarray) -> int:
-    return coord[0] * field_size[1] + coord[1]
-
-def coord_to_3dim(field_size, coord, player_num):
-    tmp_coord = np.zeros([3, field_size[0], field_size[1]])
-    tmp_coord[player_num + 1, coord[0], coord[1]] = 1
+def get_coord_3dim_onehot(field_size, coord, player_num):
+    tmp_coord = np.zeros([field_size[0], field_size[1], 3])
+    tmp_coord[coord[0], coord[1], player_num + 1] = 1
 
     return tmp_coord
 
 
-
-def num_to_coord(num: int, field_size: np.ndarray) -> np.ndarray:
-    field = np.array(range(field_size[0] * field_size[1])).reshape(field_size)
-    for col in range(field_size[0]):
-        for row in range(field_size[1]):
-            if field[col, row] == num:
-                return np.array([col, row])
-    return np.array([-1, -1])
-
-
-def field_ndim_2_to_3(field: np.ndarray) -> np.ndarray:
-    field3 = np.zeros([3, field.shape[0], field.shape[1]])
+def get_field_3dim_onehot(field: np.ndarray) -> np.ndarray:
+    field3 = np.zeros([field.shape[0], field.shape[1], 3])
 
     for col in range(field.shape[0]):
         for row in range(field.shape[1]):
             if field[col, row] == 0:
-                field3[1, col, row] = 1
+                field3[col, row, 1] = 1
             elif field[col, row] == 1:
-                field3[2, col, row] = 1
+                field3[col, row, 2] = 1
             else:
-                field3[0, col, row] = 1
+                field3[col, row, 0] = 1
 
     return field3
+
+
+def get_test_coord(field: np.ndarray) -> np.ndarray:
+    coord = np.zeros([field.shape[0], field.shape[1], 3])
+
+    for col in field.shape[0]:
+        for row in field.shape[1]:
+            if is_coord_valid(field, np.array([col, row]), 0):
+                coord[col, row, 0] = 1
+            else:
+                coord[col, row, 0] = -1
+
+            if is_coord_valid(field, np.array([col, row]), 1):
+                coord[col, row, 1] = 1
+            else:
+                coord[col, row, 1] = -1
+
+            if is_coord_valid(field, np.array([col, row]), 2):
+                coord[col, row, 2] = 1
+            else:
+                coord[col, row, 2] = -1
+
+    return coord
 
 
 def reverse_playernum_field(field: np.ndarray) -> np.ndarray:

@@ -1,13 +1,11 @@
 import os
+import json
 import numpy as np
 
-work_dir = os.environ["HOME"] + os.sep + "reversi_learn"
+config = json.load(open("config.json", "r"))
 
-filename_fields = work_dir + os.sep + "datasets_x.npy"
-filename_coords = work_dir + os.sep + "datasets_y.npy"
-
-fields = np.load(filename_fields)  # type: np.ndarray
-coords = np.load(filename_coords)  # type: np.ndarray
+fields = np.load(config["datasets_x_path"])  # type: np.ndarray
+coords = np.load(config["datasets_y_path"])  # type: np.ndarray
 
 str = ""
 while str != "exit":
@@ -19,7 +17,7 @@ while str != "exit":
         print(fields.shape[0], end="")
         print(" > ", end="")
         str = input()
-        print(fields[int(str),:])
+        print(fields[int(str), :])
     elif str == "1":
         print("Coord")
         print("num:0-", end="")

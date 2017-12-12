@@ -1,5 +1,7 @@
 import os
+import json
 import numpy as np
+from keras import backend as K
 from keras.callbacks import EarlyStopping
 from keras.layers import Activation, BatchNormalization, Conv2D, Dense, Dropout, Flatten, InputLayer, MaxPooling2D
 from keras.models import Sequential, model_from_json
@@ -9,12 +11,12 @@ from keras.utils import to_categorical, plot_model
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
-work_dir = os.environ["HOME"] + os.sep + "reversi_learn"
+config = json.load(open("config.json", "r"))
 
 
 class Train:
-    X_train = None  # type: np.ndarray
-    X_test = None  # type: np.ndarray
+    x_train = None  # type: np.ndarray
+    x_test = None  # type: np.ndarray
     y_train = None  # type: np.ndarray
     y_test = None  # type: np.ndarray
 
@@ -47,31 +49,35 @@ class Train:
     def make_model(self):
         model = Sequential()
         model.add(InputLayer(input_shape=(8, 8, 3)))
-        model.add(Conv2D(64, (3, 3), padding='same', data_format='channels_last'))
-        model.add(Conv2D(32, (3, 3), padding='same', data_format='channels_last'))
-        model.add(Conv2D(3, (3, 3), padding='same', data_format='channels_last'))
-        # softmax
+        model.add(Conv2D(3, (3, 3), padding='same'))
         model.add(Activation('relu'))
+        model.add(Conv2D(3, (4, 4), padding='same'))
+        model.add(Activation('relu'))
+        model.add(Conv2D(3, (5, 5), padding='same'))
+        model.add(Activation('relu'))
+        model.add(Conv2D(3, (6, 6), padding='same'))
+        model.add(Activation('relu'))
+        model.add(Conv2D(3, (7, 7), padding='same'))
+
         model.add(BatchNormalization())
         model.add(Activation('relu'))
         model.add(Activation('softmax'))
-        model.add(Flatten())
-        # (3, 8, 8)
+        # model.add(Flatten())
 
         self.model = model
 
     def load_model(self):
-        self.model = model_from_json(open(work_dir + "model.json", 'r').read())
+        self.model = model_from_json(open(config["model_path"], 'r').read())
 
-        self.model.load_weights(work_dir + os.sep + "weights.h5")
+        self.model.load_weights(config["weights_path"])
 
     def save_model(self):
-        open(work_dir + "model.json", "w").write(self.model.to_json())
+        open(config["model_path"], "w").write(self.model.to_json())
 
-        self.model.save_weights(work_dir + os.sep + "weights.h5")
+        self.model.save_weights(config["weights_path"])
 
     def save_png(self):
-        plot_model(self.model, to_file=work_dir + os.sep + "model.png", show_shapes=True)
+        plot_model(self.model, to_file=config["model_image_path"], show_shapes=True)
 
     def train(self):
         model = self.model
@@ -79,18 +85,11 @@ class Train:
         batch_size = 128
         epochs = 20
 
-        model.compile(loss='mean_squared_error',
-                      optimizer=SGD(),
-                      metrics=['accuracy'])
+        model.compile(loss='categorical_crossentropy', optimizer="sgd", metrics=['accuracy'])
 
-        history = model.fit(self.X_train,
-                            self.y_train,
-                            batch_size=batch_size,
-                            epochs=epochs,
-                            verbose=1,
-                            validation_split=0.1)
+        history = model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=0)
 
-        score = model.evaluate(self.X_test, self.y_test, verbose=1)
+        score = model.evaluate(self.x_test, self.y_test, verbose=1)
 
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
@@ -100,23 +99,20 @@ class Train:
         num_classes = field_size[0] * field_size[1]
 
         # データセット読み込み
-        X = np.load(work_dir + os.sep + "datasets_x.npy")
-        Y = np.load(work_dir + os.sep + "datasets_y.npy")
-
-        # one-hot
-        Y = to_categorical(Y, num_classes)
+        X = np.load(config["x_train_path"])
+        Y = np.load(config["y_train_path"])
 
         # 学習データとテストデータに分ける
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, Y,
-                                                                                test_size=0.33,
-                                                                                random_state=111)
+        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(X, Y, test_size=0.33, random_state=111)
 
 
 field_size = np.array([8, 8])
 
 train = Train(field_size)
-# train.load_model()
-train.make_model()
-train.save_png()
+if os.path.exists(config["model_path"]):
+    train.load_model()
+else:
+    train.make_model()
+    train.save_png()
 train.train()
 train.save_model()

@@ -66,7 +66,7 @@ class Field:
         self.__raw_field = np.empty(field_size, dtype="int32")
         self.__raw_field.fill(-1)
 
-        self.__set_value(ul, funcs.generate_random(0, 2))
+        self.__set_value(ul, np.random.randint(2))
         self.__set_value(ur, funcs.get_next_player(self.get_value(ul)))
         self.__set_value(dl, self.get_value(ur))
         self.__set_value(dr, self.get_value(ul))
