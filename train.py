@@ -86,7 +86,7 @@ class Train:
         batch_size = 128
         epochs = 30
 
-        model.compile(loss='mean_squared_error', optimizer="sgd", metrics=['accuracy'])
+        model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
 
         history = model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=0)
 

@@ -6,5 +6,5 @@
   "x_train_path": "/home/poini_coon/reversi_nn/x_train.npy",
   "y_train_path": "/home/poini_coon/reversi_nn/y_train.npy",
   "x_test_path": "/home/poini_coon/reversi_nn/x_test.npy",
-  "y_test_path": "/home/poini_coon/reversi_nn/y_test.npy"
+  "y_test_path": "/home/poini_coon/reversi_nn/y_test.npy",
 }
