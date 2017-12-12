@@ -45,14 +45,11 @@ class Game:
 
                 if put_result:
                     self.__players[self.__current_player_num].result_(True)
-                    self.__datasets_field.append(funcs.GetField3dimOnehot(self.__field.get_raw_field()))
-                    self.__datasets_coord.append(funcs.GetCoord3dimOnehot(self.__field.get_field_size(), put_coord,
-                                                                          self.__current_player_num))
+                    if self.__current_player_num == 1:
+                        self.__datasets_field.append(funcs.GetField3dimOnehot(tmp_field))
+                        self.__datasets_coord.append(funcs.GetCoordNum(self.__field.get_field_size(), put_coord))
                 else:
                     self.__players[self.__current_player_num].result_(False)
-                    self.__datasets_field.append(funcs.GetField3dimOnehot(self.__field.get_raw_field()))
-                    self.__datasets_coord.append(funcs.GetCoord3dimOnehot(self.__field.get_field_size(), put_coord,
-                                                                          -1))
 
             # 次のターン
             self.reverse_player()

@@ -158,11 +158,11 @@ def IsPuttableCoordExist(raw_field: np.ndarray, player_num: int) -> bool:
     return False
 
 
-def GetCoord3dimOnehot(field_size, coord, player_num):
-    tmp_coord = np.zeros([field_size[0], field_size[1], 3])
-    tmp_coord[coord[0], coord[1], player_num + 1] = 1
-
-    return tmp_coord
+def GetCoordNum(field_size, coord):
+    coord_num = np.zeros(field_size)
+    coord_num[coord[0], coord[1]] = 1
+    coord_num = np.reshape(coord_num, [-1])
+    return coord_num
 
 
 def GetField3dimOnehot(field: np.ndarray) -> np.ndarray:
@@ -196,19 +196,13 @@ def RestoreField(field: np.ndarray):
 
 
 def GetTestCoord(field: np.ndarray) -> np.ndarray:
-    coord = np.zeros([field.shape[0], field.shape[1], 3])
-
+    field = RestoreField(field)
+    coord = np.zeros(field.shape)
     for col in range(field.shape[0]):
         for row in range(field.shape[1]):
-            if IsCoordValid(RestoreField(field), np.array([col, row]), 0):
-                coord[col, row, 0] = 1
-
-            if IsCoordValid(RestoreField(field), np.array([col, row]), 1):
-                coord[col, row, 1] = 1
-
-            if IsCoordValid(RestoreField(field), np.array([col, row]), 2):
-                coord[col, row, 2] = 1
-
+            if IsCoordValid(field, np.array([col, row]), 1):
+                coord[col, row] = 1
+    coord = np.reshape(coord, [-1])
     return coord
 
 

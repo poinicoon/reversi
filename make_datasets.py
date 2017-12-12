@@ -1,6 +1,7 @@
 import os
 import json
 import numpy as np
+from keras.utils import to_categorical
 
 from field import Field
 from game import Game
@@ -25,8 +26,8 @@ field_size = np.array([8, 8])  # type: np.ndarray
 
 fields = []  # type: [np.ndarray]
 coords = []  # type: [np.ndarray]
-15
-epoch = 5  # type: int
+
+epoch = 100  # type: int
 
 for i in range(epoch):
     winner, fields, coords = play_game(field_size, fields, coords)
@@ -38,4 +39,5 @@ np.save(config["x_train_path"], fields)
 np.save(config["y_train_path"], coords)
 
 print("Saved Datasets(len: " + str(len(coords)) + ")")
+print(np.array(coords).shape)
 print()

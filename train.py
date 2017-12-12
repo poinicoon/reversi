@@ -51,18 +51,19 @@ class Train:
         model.add(InputLayer(input_shape=(8, 8, 3)))
         model.add(Conv2D(3, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (3, 3), padding='same'))
+        model.add(Conv2D(64, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (3, 3), padding='same'))
+        model.add(Conv2D(32, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (3, 3), padding='same'))
+        model.add(Conv2D(16, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (3, 3), padding='same'))
+        model.add(Conv2D(1, (3, 3), padding='same'))
+        model.add(Activation('relu'))
 
         model.add(BatchNormalization())
         model.add(Activation('relu'))
         model.add(Activation('softmax'))
-        # model.add(Flatten())
+        model.add(Flatten())
 
         self.model = model
 
@@ -83,9 +84,9 @@ class Train:
         model = self.model
 
         batch_size = 128
-        epochs = 150
+        epochs = 30
 
-        model.compile(loss='categorical_crossentropy', optimizer="sgd", metrics=['accuracy'])
+        model.compile(loss='mean_squared_error', optimizer="sgd", metrics=['accuracy'])
 
         history = model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=0)
 
