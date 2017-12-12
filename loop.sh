@@ -10,5 +10,5 @@ do
 	~/venv/bin/python3 make_datasets.py
 	~/venv/bin/python3 make_testdata_from_datasets.py
 	~/venv/bin/python3 train.py
-	
+
 done

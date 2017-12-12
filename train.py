@@ -51,13 +51,13 @@ class Train:
         model.add(InputLayer(input_shape=(8, 8, 3)))
         model.add(Conv2D(3, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (4, 4), padding='same'))
+        model.add(Conv2D(3, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (5, 5), padding='same'))
+        model.add(Conv2D(3, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (6, 6), padding='same'))
+        model.add(Conv2D(3, (3, 3), padding='same'))
         model.add(Activation('relu'))
-        model.add(Conv2D(3, (7, 7), padding='same'))
+        model.add(Conv2D(3, (3, 3), padding='same'))
 
         model.add(BatchNormalization())
         model.add(Activation('relu'))
@@ -83,7 +83,7 @@ class Train:
         model = self.model
 
         batch_size = 128
-        epochs = 20
+        epochs = 150
 
         model.compile(loss='categorical_crossentropy', optimizer="sgd", metrics=['accuracy'])
 

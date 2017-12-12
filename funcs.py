@@ -202,18 +202,12 @@ def GetTestCoord(field: np.ndarray) -> np.ndarray:
         for row in range(field.shape[1]):
             if IsCoordValid(RestoreField(field), np.array([col, row]), 0):
                 coord[col, row, 0] = 1
-            else:
-                coord[col, row, 0] = -1
 
             if IsCoordValid(RestoreField(field), np.array([col, row]), 1):
                 coord[col, row, 1] = 1
-            else:
-                coord[col, row, 1] = -1
 
             if IsCoordValid(RestoreField(field), np.array([col, row]), 2):
                 coord[col, row, 2] = 1
-            else:
-                coord[col, row, 2] = -1
 
     return coord
 
