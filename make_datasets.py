@@ -1,7 +1,6 @@
 import os
 import json
 import numpy as np
-from keras.utils import to_categorical
 
 from field import Field
 from game import Game
@@ -29,7 +28,9 @@ coords = []  # type: [np.ndarray]
 
 epoch = 100  # type: int
 
+print("make_datasets")
 for i in range(epoch):
+    print(str(i + 1) + "/" + str(epoch))
     winner, fields, coords = play_game(field_size, fields, coords)
 
 if not os.path.isdir(config["work_dir"]):
