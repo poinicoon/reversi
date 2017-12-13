@@ -62,7 +62,6 @@ class Train:
 
         model.add(BatchNormalization())
         model.add(Activation('relu'))
-        model.add(Activation('softmax'))
         model.add(Flatten())
 
         self.model = model
