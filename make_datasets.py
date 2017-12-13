@@ -14,7 +14,8 @@ config = json.load(open("config.json", "r"))
 
 def play_game(field_size: np.ndarray, fields, coords) -> (int, [np.ndarray], [np.ndarray]):
     field_ins = Field(field_size)  # type: Field
-    players_ins = (PlayerRandomValidOnly(0, field_size), PlayerRandomValidOnly(1, field_size))  # type: (PlayerBase, PlayerBase)
+    players_ins = (
+        PlayerRandomValidOnly(0, field_size), PlayerRandomValidOnly(1, field_size))  # type: (PlayerBase, PlayerBase)
 
     game_ins = Game(field_ins, players_ins, fields, coords)  # type: Game
     winner, fields, coords = game_ins.start()
@@ -30,11 +31,10 @@ coords = []  # type: [np.ndarray]
 
 epoch = 100  # type: int
 
-print("make_datasets")
 for i in range(epoch):
-    sys.stdout.write("\r" + str(i) + "/" + str(epoch))
+    sys.stdout.write("\r" + "make_datasets: " + str(i) + "/" + str(epoch))
     winner, fields, coords = play_game(field_size, fields, coords)
-
+print()
 if not os.path.isdir(config["work_dir"]):
     os.mkdir(config["work_dir"])
 
