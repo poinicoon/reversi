@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import numpy as np
 
@@ -31,7 +32,7 @@ epoch = 100  # type: int
 
 print("make_datasets")
 for i in range(epoch):
-    print(str(i + 1) + "/" + str(epoch))
+    sys.stdout.write("\r" + str(i) + "/" + str(epoch))
     winner, fields, coords = play_game(field_size, fields, coords)
 
 if not os.path.isdir(config["work_dir"]):

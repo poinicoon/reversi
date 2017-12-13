@@ -2,9 +2,11 @@
 
 epoch=1000
 
+printf "loop"
+
 for ((i=0 ; i<epoch ; i++))
 do
-	echo "loop: "$i"/"$epoch
+	printf "\r"$i"/"$epoch
 
 	~/venv/bin/python3 make_datasets.py
 	#~/venv/bin/python3 make_testdata_from_datasets.py
