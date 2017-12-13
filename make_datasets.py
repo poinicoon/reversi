@@ -6,13 +6,14 @@ from field import Field
 from game import Game
 from player_base import PlayerBase
 from player_random_all import PlayerRandomAll
+from player_random_valid_only import PlayerRandomValidOnly
 
 config = json.load(open("config.json", "r"))
 
 
 def play_game(field_size: np.ndarray, fields, coords) -> (int, [np.ndarray], [np.ndarray]):
     field_ins = Field(field_size)  # type: Field
-    players_ins = (PlayerRandomAll(0, field_size), PlayerRandomAll(1, field_size))  # type: (PlayerBase, PlayerBase)
+    players_ins = (PlayerRandomValidOnly(0, field_size), PlayerRandomValidOnly(1, field_size))  # type: (PlayerBase, PlayerBase)
 
     game_ins = Game(field_ins, players_ins, fields, coords)  # type: Game
     winner, fields, coords = game_ins.start()
