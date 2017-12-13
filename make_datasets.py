@@ -32,7 +32,7 @@ coords = []  # type: [np.ndarray]
 epoch = 100  # type: int
 
 for i in range(epoch):
-    sys.stdout.write("\r" + "make_datasets: " + str(i) + "/" + str(epoch))
+    sys.stdout.write("\r" + "make_datasets: " + str(i+1) + "/" + str(epoch))
     winner, fields, coords = play_game(field_size, fields, coords)
 print()
 if not os.path.isdir(config["work_dir"]):
