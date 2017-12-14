@@ -4,7 +4,7 @@ epoch=1000
 
 for ((i=0 ; i<$epoch ; i++))
 do
-	echo "loop: "$i+1"/"$epoch
+	echo "loop: "$((i+1))"/"$epoch
 
 	~/venv/bin/python3 make_datasets.py
 	#~/venv/bin/python3 make_testdata_from_datasets.py
