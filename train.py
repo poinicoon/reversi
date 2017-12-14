@@ -51,11 +51,14 @@ class Train:
         model.add(InputLayer(input_shape=(8, 8, 3)))
         model.add(Conv2D(192, (5, 5), padding='same'))
         model.add(Activation('relu'))
+        model.add(BatchNormalization())
         for i in range(11):
             model.add(Conv2D(192, (3, 3), padding='same'))
             model.add(Activation('relu'))
+            model.add(BatchNormalization())
         model.add(Conv2D(1, (1, 1), padding='same', use_bias=True))
         model.add(Activation('relu'))
+        model.add(BatchNormalization())
         model.add(Activation('softmax'))
         model.add(Flatten())
 
@@ -92,13 +95,6 @@ class Train:
     def __init__(self, field_size: np.ndarray):
         # フィールドの要素数
         num_classes = field_size[0] * field_size[1]
-
-        # データセット読み込み
-        # X = np.load(config["x_train_path"])
-        # Y = np.load(config["y_train_path"])
-
-        # 学習データとテストデータに分ける
-        # self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(X, Y, test_size=0.33, random_state=111)
 
         self.x_train = np.load(config["x_train_path"])
         self.y_train = np.load(config["y_train_path"])
