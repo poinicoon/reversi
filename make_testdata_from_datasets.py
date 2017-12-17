@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import numpy as np
 
@@ -13,7 +14,7 @@ y_train = np.load(config["y_train_path"])
 y_test = []
 
 for i in range(len(x_train)):
-    print(str(i + 1) + "/" + str(len(x_train)))
+    sys.stdout.write("\r" + "make_testdata: " + str(i + 1) + "/" + str(len(x_train)))
     y_test.append(GetTestCoord(x_train[i]))
 
 np.save(config["x_test_path"], x_train)
