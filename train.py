@@ -75,17 +75,21 @@ class Train:
         plot_model(self.model, to_file=config["model_image_path"], show_shapes=True)
 
     def train(self):
+        model = self.model
+
         batch_size = 128
         epochs = 100
 
-        self.model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
+        model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
 
-        history = self.model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=0)
+        history = model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=0)
 
-        score = self.model.evaluate(self.x_test, self.y_test, verbose=1)
+        score = model.evaluate(self.x_test, self.y_test, verbose=1)
 
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
+
+        self.model= model
 
     def __init__(self, field_size: np.ndarray):
         # フィールドの要素数
@@ -101,8 +105,10 @@ field_size = np.array([8, 8])
 
 train = Train(field_size)
 if os.path.exists(config["model_path"]):
+    print("load model")
     train.load_model()
 else:
+    print("make model")
     train.make_model()
     train.save_png()
 train.train()
