@@ -77,7 +77,7 @@ class Train:
         model = self.model
 
         batch_size = 128
-        epochs = 20
+        epochs = 100
 
         model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
 
