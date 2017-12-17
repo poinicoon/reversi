@@ -220,7 +220,6 @@ def DrawField(field: np.ndarray):
 
 
 def PrintField(raw_field: np.ndarray) -> None:
-    print("Field")
     for col in range(raw_field.shape[0]):
         for row in range(raw_field.shape[1]):
             if raw_field[col, row] == -1:

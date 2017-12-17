@@ -1,19 +1,18 @@
 import numpy as np
-import typing
 
-import funcs
-import player_base
+from funcs import IsCoordValid
+from player_base import PlayerBase
 
 
-class PlayerRandomValidOnly(player_base.PlayerBase):
+class PlayerRandomValidOnly(PlayerBase):
     def execute_(self, raw_field: np.ndarray) -> np.ndarray:
 
-        put_coord_list = []  # type: typing.List[np.ndarray]
+        put_coord_list = []  # type: [np.ndarray]
 
         for col in range(raw_field.shape[0]):
             for row in range(raw_field.shape[1]):
                 tmp_coord = np.array([col, row])  # type: np.ndarray
-                if funcs.IsCoordValid(raw_field, tmp_coord, self.get_player_number()):
+                if IsCoordValid(raw_field, tmp_coord, self.get_player_number()):
                     put_coord_list.append(tmp_coord)
 
         return put_coord_list[np.random.randint(len(put_coord_list))]

@@ -1,13 +1,13 @@
 import numpy as np
 
-import funcs
-import field
-import player_base
+from funcs import GetNextPlayer, GetField3dimOnehot, GetCoordNum, GetNumOfPlayerPosition
+from field import Field
+from player_base import PlayerBase
 
 
 class Game:
-    __field = None  # type: field.Field
-    __players = (None, None)  # type: (player_base.PlayerBase)
+    __field = None  # type: Field
+    __players = (None, None)  # type: (PlayerBase)
 
     __current_player_num = -1  # type: int
     __num_of_turn = -1  # type: int
@@ -15,13 +15,18 @@ class Game:
     __datasets_field = []  # type: [np.ndarray]
     __datasets_coord = []  # type: [np.ndarray]
 
+    __is_show_game = False
+
     def reverse_player(self) -> None:
-        self.__current_player_num = funcs.GetNextPlayer(self.__current_player_num)
+        self.__current_player_num = GetNextPlayer(self.__current_player_num)
 
     def increment_turn(self) -> None:
         self.__num_of_turn += 1
 
     def start(self) -> (int, [np.ndarray], [np.ndarray]):
+
+        if self.__is_show_game:
+            print("Game start.")
 
         # 両プレイヤーの置く場所が無くなるまでループ
         while self.__field.is_puttable_coord_exist(0) or self.__field.is_puttable_coord_exist(1):
@@ -37,19 +42,33 @@ class Game:
                 self.reverse_player()  # 次のプレイヤーに
                 continue
 
+            if self.__is_show_game:
+                print("Turn: " + str(self.__num_of_turn))
+                print("Player: " + str(self.__current_player_num))
+                print(self.__field.get_raw_field() + 1)
+
             # プレイヤーに対して座標を訪ねる
             while (not put_result):
                 put_coord = self.__players[self.__current_player_num].execute_(self.__field.get_raw_field())
                 tmp_field = self.__field.get_raw_field()
                 put_result = self.__field.put(put_coord, self.__current_player_num)
 
+                if self.__is_show_game:
+                    print(str(put_coord[0]) + ", " + str(put_coord[1]) + " -> " + str(put_result))
+
                 if put_result:
                     self.__players[self.__current_player_num].result_(True)
                     if self.__current_player_num == 1:
-                        self.__datasets_field.append(funcs.GetField3dimOnehot(tmp_field))
-                        self.__datasets_coord.append(funcs.GetCoordNum(self.__field.get_field_size(), put_coord))
+                        self.__datasets_field.append(GetField3dimOnehot(tmp_field))
+                        self.__datasets_coord.append(GetCoordNum(self.__field.get_field_size(), put_coord))
                 else:
                     self.__players[self.__current_player_num].result_(False)
+
+            if self.__is_show_game:
+                print(self.__field.get_raw_field() + 1)
+                print("0: " + str(GetNumOfPlayerPosition(self.__field.get_raw_field(), 0)))
+                print("1: " + str(GetNumOfPlayerPosition(self.__field.get_raw_field(), 1)))
+                print()
 
             # 次のターン
             self.reverse_player()
@@ -62,9 +81,8 @@ class Game:
 
         return winner, self.__datasets_field, self.__datasets_coord
 
-    def __init__(self, field_ins: field.Field, players_ins: (player_base.PlayerBase, player_base.PlayerBase),
-                 fields: [np.ndarray],
-                 coords: [np.ndarray]):
+    def __init__(self, field_ins: Field, players_ins: (PlayerBase, PlayerBase), fields: [np.ndarray],
+                 coords: [np.ndarray], show=False):
         self.__field = field_ins
         self.__players = players_ins
 
@@ -73,3 +91,5 @@ class Game:
 
         self.__datasets_field = fields
         self.__datasets_coord = coords
+
+        self.__is_show_game = show

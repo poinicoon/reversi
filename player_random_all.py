@@ -1,9 +1,9 @@
 import numpy as np
 
-import player_base
+from player_base import PlayerBase
 
 
-class PlayerRandomAll(player_base.PlayerBase):
+class PlayerRandomAll(PlayerBase):
     def execute_(self, raw_field: np.ndarray) -> np.ndarray:
         return np.array([np.random.randint(raw_field.shape[0]), np.random.randint(raw_field.shape[1])])
 
