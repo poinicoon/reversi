@@ -57,8 +57,9 @@ class Train:
             model.add(Activation('relu'))
             model.add(BatchNormalization())
         model.add(Conv2D(1, (1, 1), padding='same', use_bias=True))
-        model.add(Activation('relu'))
-        model.add(BatchNormalization())
+        for i in range(5):
+            model.add(Activation('relu'))
+            model.add(BatchNormalization())
         model.add(Activation('softmax'))
         model.add(Flatten())
 
