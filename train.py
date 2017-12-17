@@ -52,7 +52,7 @@ class Train:
         model.add(Conv2D(192, (5, 5), padding='same'))
         model.add(Activation('relu'))
         model.add(BatchNormalization())
-        for i in range(11):
+        for i in range(2):
             model.add(Conv2D(192, (3, 3), padding='same'))
             model.add(Activation('relu'))
             model.add(BatchNormalization())
