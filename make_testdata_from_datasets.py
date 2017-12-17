@@ -17,5 +17,7 @@ for i in range(len(x_train)):
     sys.stdout.write("\r" + "make_testdata: " + str(i + 1) + "/" + str(len(x_train)))
     y_test.append(GetTestCoord(x_train[i]))
 
+print()
+
 np.save(config["x_test_path"], x_train)
 np.save(config["y_test_path"], y_test)
