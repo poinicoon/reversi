@@ -4,7 +4,7 @@ import numpy as np
 from keras import backend as K
 from keras.callbacks import EarlyStopping
 from keras.layers import Activation, BatchNormalization, Conv2D, Dense, Dropout, Flatten, InputLayer, MaxPooling2D
-from keras.models import Sequential, model_from_json
+from keras.models import Sequential, model_from_json, load_model
 from keras.optimizers import Adam, RMSprop, SGD
 from keras.losses import categorical_crossentropy, mean_squared_error
 from keras.utils import to_categorical, plot_model
@@ -65,14 +65,10 @@ class Train:
         self.model = model
 
     def load_model(self):
-        self.model = model_from_json(open(config["model_path"], 'r').read())
-
-        self.model.load_weights(config["weights_path"])
+        self.model = load_model(config["model_path"])
 
     def save_model(self):
-        open(config["model_path"], "w").write(self.model.to_json())
-
-        self.model.save_weights(config["weights_path"])
+        self.model.save(config["model_path"])
 
     def save_png(self):
         plot_model(self.model, to_file=config["model_image_path"], show_shapes=True)
@@ -81,7 +77,7 @@ class Train:
         model = self.model
 
         batch_size = 128
-        epochs = 200
+        epochs = 20
 
         model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
 

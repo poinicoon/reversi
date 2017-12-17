@@ -1,4 +1,3 @@
-import random
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -158,7 +157,7 @@ def IsPuttableCoordExist(raw_field: np.ndarray, player_num: int) -> bool:
     return False
 
 
-def GetCoordNum(field_size, coord):
+def GetCoordNum(field_size, coord) -> np.ndarray:
     coord_num = np.zeros(field_size)
     coord_num[coord[0], coord[1]] = 1
     coord_num = np.reshape(coord_num, [-1])
@@ -180,7 +179,7 @@ def GetField3dimOnehot(field: np.ndarray) -> np.ndarray:
     return field3
 
 
-def RestoreField(field: np.ndarray):
+def RestoreField(field: np.ndarray) -> np.ndarray:
     field2 = np.zeros([field.shape[0], field.shape[1]])
 
     for col in range(field.shape[0]):
@@ -214,7 +213,7 @@ def ReversePlayernumField(field: np.ndarray) -> np.ndarray:
     return field
 
 
-def DrawField(field: np.ndarray):
+def DrawField(field: np.ndarray) -> None:
     plt.imshow(field, cmap='gray', interpolation='none')
     plt.show()
 
