@@ -41,6 +41,5 @@ if not os.path.isdir(config["work_dir"]):
 np.save(config["x_train_path"], fields)
 np.save(config["y_train_path"], coords)
 
-print("Saved Datasets(len: " + str(len(coords)) + ")")
-print(np.array(coords).shape)
+print("Saved Datasets: " + str(len(coords)))
 print()
