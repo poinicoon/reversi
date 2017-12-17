@@ -48,7 +48,7 @@ class Train:
 
     def make_model(self):
         model = Sequential()
-        model.add(InputLayer(input_shape=(8, 8, 3)))
+        model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
         model.add(Conv2D(192, (5, 5), padding='same'))
         model.add(Activation('relu'))
         model.add(BatchNormalization())
