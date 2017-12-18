@@ -63,6 +63,8 @@ class Train:
         model.add(Activation('softmax'))
         model.add(Flatten())
 
+        model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
+
         self.model = model
 
     def load_model(self):
@@ -79,8 +81,6 @@ class Train:
 
         batch_size = 128
         epochs = 100
-
-        model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
 
         history = model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=0)
 
