@@ -50,17 +50,14 @@ class Train:
         model = Sequential()
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
         model.add(Dense(64))
-        model.add(Conv2D(64, (5, 5), padding='same'))
-        model.add(Activation('relu'))
-        model.add(Conv2D(64, (3, 3), padding='same'))
-        model.add(Activation('relu'))
-        model.add(Dense(1))
-        model.add(Conv2D(1, (1, 1), padding='same', use_bias=True))
-        model.add(Activation('relu'))
-        model.add(Activation('softmax'))
+        model.add(Conv2D(64, (5, 5), padding='same', activation='relu'))
+        model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
+        model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
         model.add(Flatten())
+        model.add(Dense(36, activation='relu'))
+        model.add(Dense(36, activation='softmax'))
 
-        model.compile(loss='mse', optimizer="SGD", metrics=['accuracy'])
+        model.compile(loss='categorical_crossentropy', optimizer="SGD", metrics=['accuracy'])
 
         self.model = model
 
@@ -76,9 +73,10 @@ class Train:
     def train(self):
         model = self.model
 
-        batch_size = 128
+        batch_size = 64
         epochs = 100
-        callbacks = [EarlyStopping()]
+        callbacks = []
+        #callbacks.append(EarlyStopping())
 
         history = model.fit(self.x_train,
                             self.y_train,
@@ -95,7 +93,6 @@ class Train:
         self.model = model
 
     def __init__(self):
-
         self.x_train = np.load(config["x_train_path"])
         self.y_train = np.load(config["y_train_path"])
         self.x_test = np.load(config["x_test_path"])

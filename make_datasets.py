@@ -29,7 +29,7 @@ field_size = np.array([6, 6])  # type: np.ndarray
 fields = []  # type: [np.ndarray]
 coords = []  # type: [np.ndarray]
 
-epoch = 100  # type: int
+epoch = 1000  # type: int
 
 for i in range(epoch):
     sys.stdout.write("\r" + "make_datasets: " + str(i+1) + "/" + str(epoch))
