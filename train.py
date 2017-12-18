@@ -49,13 +49,12 @@ class Train:
     def make_model(self):
         model = Sequential()
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
-        model.add(Dense(64))
         model.add(Conv2D(64, (5, 5), padding='same', activation='relu'))
         model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
         model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
         model.add(Flatten())
-        model.add(Dense(36, activation='relu'))
-        model.add(Dense(36, activation='softmax'))
+        model.add(Activation('relu'))
+        model.add(Activation('softmax'))
 
         model.compile(loss='categorical_crossentropy', optimizer="SGD", metrics=['accuracy'])
 
