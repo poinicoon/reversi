@@ -24,7 +24,7 @@ def play_game(field_size: np.ndarray, fields, coords) -> (int, [np.ndarray], [np
 
 
 # フィールドサイズ
-field_size = np.array([6, 6])  # type: np.ndarray
+field_size = np.array([8, 8])  # type: np.ndarray
 
 fields = []  # type: [np.ndarray]
 coords = []  # type: [np.ndarray]
@@ -32,7 +32,7 @@ coords = []  # type: [np.ndarray]
 epoch = 1000  # type: int
 
 for i in range(epoch):
-    sys.stdout.write("\r" + "make_datasets: " + str(i+1) + "/" + str(epoch))
+    sys.stdout.write("\r" + "make_datasets: " + str(i + 1) + "/" + str(epoch))
     winner, fields, coords = play_game(field_size, fields, coords)
 print()
 if not os.path.isdir(config["work_dir"]):
