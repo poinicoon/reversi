@@ -81,19 +81,23 @@ class Train:
 
         batch_size = 128
         epochs = 100
+        callbacks = [EarlyStopping()]
 
-        history = model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=0)
+        history = model.fit(self.x_train,
+                            self.y_train,
+                            batch_size=batch_size,
+                            epochs=epochs,
+                            verbose=1,
+                            callbacks=callbacks)
 
         score = model.evaluate(self.x_test, self.y_test, verbose=1)
 
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
 
-        self.model= model
+        self.model = model
 
-    def __init__(self, field_size: np.ndarray):
-        # フィールドの要素数
-        num_classes = field_size[0] * field_size[1]
+    def __init__(self):
 
         self.x_train = np.load(config["x_train_path"])
         self.y_train = np.load(config["y_train_path"])
@@ -101,9 +105,7 @@ class Train:
         self.y_test = np.load(config["y_test_path"])
 
 
-field_size = np.array([8, 8])
-
-train = Train(field_size)
+train = Train()
 if os.path.exists(config["model_path"]):
     print("load model")
     train.load_model()
