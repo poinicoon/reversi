@@ -49,21 +49,18 @@ class Train:
     def make_model(self):
         model = Sequential()
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
-        model.add(Conv2D(192, (5, 5), padding='same'))
+        model.add(Dense(64))
+        model.add(Conv2D(64, (5, 5), padding='same'))
         model.add(Activation('relu'))
-        model.add(BatchNormalization())
-        for i in range(2):
-            model.add(Conv2D(192, (3, 3), padding='same'))
-            model.add(Activation('relu'))
-            model.add(BatchNormalization())
+        model.add(Conv2D(64, (3, 3), padding='same'))
+        model.add(Activation('relu'))
+        model.add(Dense(1))
         model.add(Conv2D(1, (1, 1), padding='same', use_bias=True))
-        for i in range(5):
-            model.add(Activation('relu'))
-            model.add(BatchNormalization())
+        model.add(Activation('relu'))
         model.add(Activation('softmax'))
         model.add(Flatten())
 
-        model.compile(loss='mean_squared_error', optimizer="adam", metrics=['accuracy'])
+        model.compile(loss='mse', optimizer="SGD", metrics=['accuracy'])
 
         self.model = model
 
