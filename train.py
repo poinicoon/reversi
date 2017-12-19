@@ -4,11 +4,8 @@ import numpy as np
 # from keras import backend as K
 # from keras.callbacks import EarlyStopping
 from keras.layers import Activation, BatchNormalization, Conv2D, Dense, Dropout, Flatten, InputLayer, MaxPooling2D
-from keras.models import Sequential, model_from_json, load_model
-# from keras.optimizers import Adam, RMSprop, SGD
-# from keras.losses import categorical_crossentropy, mean_squared_error
+from keras.models import Sequential, load_model
 from keras.utils import to_categorical, plot_model
-# from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 config = json.load(open("config.json", "r"))
@@ -75,7 +72,7 @@ class Train:
         batch_size = 64
         epochs = 100
         callbacks = []
-        #callbacks.append(EarlyStopping())
+        # callbacks.append(EarlyStopping())
 
         history = model.fit(self.x_train,
                             self.y_train,

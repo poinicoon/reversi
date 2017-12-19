@@ -1,3 +1,5 @@
+import os
+import sys
 import numpy as np
 
 from funcs import GetNextPlayer, GetField3dimOnehot, GetCoordNum, GetNumOfPlayerPosition
@@ -23,10 +25,13 @@ class Game:
     def increment_turn(self) -> None:
         self.__num_of_turn += 1
 
+    def print(self, values=None, end=None) -> None:
+        if self.__is_show_game:
+            print("" if values is None else values, end=end)
+
     def start(self) -> (int, [np.ndarray], [np.ndarray]):
 
-        if self.__is_show_game:
-            print("Game start.")
+        self.print("Game start.")
 
         # 両プレイヤーの置く場所が無くなるまでループ
         while self.__field.is_puttable_coord_exist(0) or self.__field.is_puttable_coord_exist(1):
@@ -38,10 +43,9 @@ class Game:
                 self.reverse_player()  # 次のプレイヤーに
                 continue
 
-            if self.__is_show_game:
-                print("Turn: " + str(self.__num_of_turn))
-                print("Player: " + str(self.__current_player_num))
-                print(self.__field.get_field().astype('int') + 1)
+            self.print("Turn: " + str(self.__num_of_turn))
+            self.print("Player: " + str(self.__current_player_num))
+            self.print(self.__field.get_field().astype('int') + 1)
 
             # プレイヤーに対して座標を訪ねる
             while (not put_result):
@@ -49,8 +53,7 @@ class Game:
                 tmp_field = self.__field.get_field()
                 put_result = self.__field.put(put_coord, self.__current_player_num)
 
-                if self.__is_show_game:
-                    print(str(put_coord[0]) + ", " + str(put_coord[1]) + " -> " + str(put_result))
+                self.print(str(put_coord[0]) + ", " + str(put_coord[1]) + " -> " + str(put_result))
 
                 if put_result:
                     self.__players[self.__current_player_num].result_(True)
@@ -60,11 +63,10 @@ class Game:
                 else:
                     self.__players[self.__current_player_num].result_(False)
 
-            if self.__is_show_game:
-                print(self.__field.get_field().astype('int') + 1)
-                print("0: " + str(GetNumOfPlayerPosition(self.__field.get_field(), 0)))
-                print("1: " + str(GetNumOfPlayerPosition(self.__field.get_field(), 1)))
-                print()
+            self.print(self.__field.get_field().astype('int') + 1)
+            self.print("0: " + str(GetNumOfPlayerPosition(self.__field.get_field(), 0)))
+            self.print("1: " + str(GetNumOfPlayerPosition(self.__field.get_field(), 1)))
+            self.print()
 
             # 次のターン
             self.reverse_player()
