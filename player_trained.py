@@ -20,7 +20,7 @@ class PlayerTrained(player_base.PlayerBase):
 
         coord = coord_list[np.random.randint(len(coord_list))]
         coord = np.array([np.round(coord / field_size[1]), coord - np.round(coord / field_size[1]) * field_size[1]])
-        
+
         return coord
 
     def __init__(self, player_num: int, field_size: np.ndarray, player_name="Trained"):
