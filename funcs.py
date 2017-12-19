@@ -20,9 +20,9 @@ def GetCornerCoord(field_size: np.ndarray, corner_num: int) -> np.ndarray:
     if corner_num == 0:
         return np.array([0, 0])
     elif corner_num == 1:
-        return field_size - np.array([0, 1])
+        return field_size * np.array([0, 1]) - np.array([0, 1])
     elif corner_num == 2:
-        return field_size - np.array([1, 0])
+        return field_size * np.array([1, 0]) - np.array([1, 0])
     elif corner_num == 3:
         return field_size - 1
     else:
