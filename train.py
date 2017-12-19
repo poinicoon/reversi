@@ -20,7 +20,7 @@ class Train:
     y_train = None  # type: np.ndarray
     y_test = None  # type: np.ndarray
 
-    model = None
+    model = None  # type: Sequential
 
     def plot(self, epochs, history):
         loss = history.history['loss']

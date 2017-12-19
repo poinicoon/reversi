@@ -1,6 +1,6 @@
 import json
 import numpy as np
-from keras.models import load_model
+from keras.models import Sequential, load_model
 
 import player_base
 from funcs import GetField3dimOnehot
@@ -9,6 +9,8 @@ config = json.load(open("config.json", "r"))
 
 
 class PlayerTrained(player_base.PlayerBase):
+    model = None  # type: Sequential
+
     def execute_(self, field: np.ndarray) -> np.ndarray:
         coord_list = self.model.predict(GetField3dimOnehot(field))  # type: np.ndarray
         coord_avg = np.average(coord_list)
