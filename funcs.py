@@ -44,23 +44,23 @@ def GetCenterCoord(field_size: np.ndarray, center_num: int) -> np.ndarray:
 
 def GetMovedCoord(coord: np.ndarray, direc_num: int, move_size: int) -> np.ndarray:
     if direc_num == 0:
-        return np.array([-move_size, -move_size]) + coord
+        return np.array([-1, -1]) * move_size + coord
     elif direc_num == 1:
-        return np.array([-move_size, 0]) + coord
+        return np.array([-1, 0]) * move_size + coord
     elif direc_num == 2:
-        return np.array([-move_size, move_size]) + coord
+        return np.array([-1, 1]) * move_size + coord
     elif direc_num == 3:
-        return np.array([0, -move_size]) + coord
+        return np.array([0, -1]) * move_size + coord
     elif direc_num == 4:
-        return np.array([0, move_size]) + coord
+        return np.array([0, 1]) * move_size + coord
     elif direc_num == 5:
-        return np.array([move_size, -move_size]) + coord
+        return np.array([1, -1]) * move_size + coord
     elif direc_num == 6:
-        return np.array([move_size, 0]) + coord
+        return np.array([1, 0]) * move_size + coord
     elif direc_num == 7:
-        return np.array([move_size, move_size]) + coord
+        return np.array([1, 1]) * move_size + coord
     else:
-        return np.array([0, 0]) + coord
+        return np.array([-1, -1])
 
 
 def IsCoordInRange(field_size: np.ndarray, coord: np.ndarray) -> bool:
@@ -89,28 +89,32 @@ def GetMostPlayerNumber(raw_field: np.ndarray) -> int:
 def GetGettablePositionList(field: np.ndarray, put_coord: np.ndarray, player_num: int) -> [np.ndarray]:
     next_player_num = GetNextPlayer(player_num)
     field_max = np.max(field.shape)
+
     gettable_pos_list = []  # type: [np.ndarray]
 
-    # coord is not empty
+    # put coord is not empty
     if GetValue(field, put_coord) != -1:
         return gettable_pos_list
 
-    # coord is out of field
+    # put coord is out of field
     if not (IsCoordInRange(np.array(field.shape), put_coord)):
         return gettable_pos_list
 
     for direc_num in range(8):
-        tmp_coord = GetMovedCoord(put_coord, direc_num, 1)  # type: np.ndarray
+
+        # next position
+        tmp_coord = GetMovedCoord(put_coord, direc_num, 1)
+
+        # next position is out of field
         if not (IsCoordInRange(np.array(field.shape), tmp_coord)):
             continue
 
-        # next position is not next player
-        tmp_coord = GetMovedCoord(put_coord, direc_num, 1)
+        # next position is not enemy
         if GetValue(field, tmp_coord) != next_player_num:
             continue
 
         for move_size in range(2, field_max):
-            tmp_coord = GetMovedCoord(put_coord, direc_num, move_size)  # type: np.ndarray
+            tmp_coord = GetMovedCoord(put_coord, direc_num, move_size)
 
             if not (IsCoordInRange(np.array(field.shape), tmp_coord)):
                 break

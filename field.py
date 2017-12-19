@@ -5,45 +5,45 @@ from funcs import IsCoordInRange, IsEmptyCoordExist, IsCoordValid, IsPuttableCoo
 
 
 class Field:
-    __raw_field = None  # type: np.ndarray
+    __field = None  # type: np.ndarray
 
     def __set_value(self, coord: np.ndarray, value: int) -> None:
         coord = coord.astype('int')
-        self.__raw_field[coord[0], coord[1]] = value
+        self.__field[coord[0], coord[1]] = value
 
     def get_field_size(self) -> np.ndarray:
-        return np.array(self.__raw_field.shape)
+        return np.array(self.__field.shape)
 
     def get_value(self, coord: np.ndarray) -> int:
         coord = coord.astype('int')
-        return self.__raw_field[coord[0], coord[1]]
+        return self.__field[coord[0], coord[1]]
 
     def is_coord_in_range(self, coord: np.ndarray) -> bool:
-        return IsCoordInRange(self.__raw_field, coord)
+        return IsCoordInRange(self.__field, coord)
 
     def is_empty_coord_exist(self) -> bool:
-        return IsEmptyCoordExist(self.__raw_field)
+        return IsEmptyCoordExist(self.__field)
 
     def is_coord_valid(self, coord: np.ndarray, player_num: int) -> bool:
-        return IsCoordValid(self.__raw_field, coord, player_num)
+        return IsCoordValid(self.__field, coord, player_num)
 
     def is_puttable_coord_exist(self, player_num: int) -> bool:
-        return IsPuttableCoordExist(self.__raw_field, player_num)
+        return IsPuttableCoordExist(self.__field, player_num)
 
     def get_num_of_player_position(self, player_num: int) -> int:
-        return GetNumOfPlayerPosition(self.__raw_field, player_num)
+        return GetNumOfPlayerPosition(self.__field, player_num)
 
     def get_most_player_number(self) -> int:
-        return GetMostPlayerNumber(self.__raw_field)
+        return GetMostPlayerNumber(self.__field)
 
     def get_gettable_position_list(self, coord: np.ndarray, player_num: int) -> [np.ndarray]:
-        return GetGettablePositionList(self.__raw_field, coord, player_num)
+        return GetGettablePositionList(self.__field, coord, player_num)
 
     def get_num_of_gettable_position(self, coord: np.ndarray, player_num: int) -> int:
-        return GetNumOfGettablePosition(self.__raw_field, coord, player_num)
+        return GetNumOfGettablePosition(self.__field, coord, player_num)
 
-    def get_raw_field(self) -> np.ndarray:
-        return np.array(self.__raw_field)
+    def get_field(self) -> np.ndarray:
+        return self.__field
 
     def put(self, coord: np.ndarray, player_num: int) -> bool:
         if self.is_coord_valid(coord, player_num):
@@ -60,8 +60,8 @@ class Field:
         dl = GetCenterCoord(field_size, 2)  # type: np.ndarray
         dr = GetCenterCoord(field_size, 3)  # type: np.ndarray
 
-        self.__raw_field = np.empty(field_size)
-        self.__raw_field.fill(-1)
+        self.__field = np.empty(field_size)
+        self.__field.fill(-1)
 
         self.__set_value(ul, np.random.randint(2))
         self.__set_value(ur, GetNextPlayer(self.get_value(ul)))
