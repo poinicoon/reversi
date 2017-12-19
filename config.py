@@ -1,7 +1,7 @@
-import os
 from pathlib import Path
 
 WorkDir = Path.home().joinpath(".reversi_nn")
+
 ModelPath = WorkDir.joinpath("model.h5")
 ModelImagePath = WorkDir.joinpath("model.png")
 XTrainPath = WorkDir.joinpath("x_train.npy")
