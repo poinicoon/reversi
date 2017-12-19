@@ -157,10 +157,10 @@ def IsPuttableCoordExist(raw_field: np.ndarray, player_num: int) -> bool:
     return False
 
 
-def GetCoordNum(field_size, coord) -> np.ndarray:
+def GetCoordNum(field_size: np.ndarray, coord: np.ndarray) -> np.ndarray:
     coord_num = np.zeros(field_size)
     coord_num[coord[0], coord[1]] = 1
-    coord_num = np.reshape(coord_num, [-1])
+    coord_num = coord_num.reshape([-1])
     return coord_num
 
 
