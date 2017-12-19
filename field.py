@@ -8,12 +8,14 @@ class Field:
     __raw_field = None  # type: np.ndarray
 
     def __set_value(self, coord: np.ndarray, value: int) -> None:
+        coord = coord.astype('int')
         self.__raw_field[coord[0], coord[1]] = value
 
     def get_field_size(self) -> np.ndarray:
         return np.array(self.__raw_field.shape)
 
     def get_value(self, coord: np.ndarray) -> int:
+        coord = coord.astype('int')
         return self.__raw_field[coord[0], coord[1]]
 
     def is_coord_in_range(self, coord: np.ndarray) -> bool:
@@ -58,7 +60,7 @@ class Field:
         dl = GetCenterCoord(field_size, 2)  # type: np.ndarray
         dr = GetCenterCoord(field_size, 3)  # type: np.ndarray
 
-        self.__raw_field = np.empty(field_size, dtype="int32")
+        self.__raw_field = np.empty(field_size)
         self.__raw_field.fill(-1)
 
         self.__set_value(ul, np.random.randint(2))

@@ -9,8 +9,8 @@ class Game:
     __field = None  # type: Field
     __players = (None, None)  # type: (PlayerBase)
 
-    __current_player_num = -1  # type: int
-    __num_of_turn = -1  # type: int
+    __current_player_num = -1
+    __num_of_turn = -1
 
     __datasets_field = []  # type: [np.ndarray]
     __datasets_coord = []  # type: [np.ndarray]
@@ -30,11 +30,7 @@ class Game:
 
         # 両プレイヤーの置く場所が無くなるまでループ
         while self.__field.is_puttable_coord_exist(0) or self.__field.is_puttable_coord_exist(1):
-            put_coord = np.zeros([2])  # type: np.ndarray
-            tmp_coord = np.zeros([2])  # type: np.ndarray
-            tmp_field = np.zeros(self.__field.get_field_size())  # type: np.ndarray
-
-            put_result = False  # type: bool
+            put_result = False
 
             # 現在のプレイヤーが置けない場合パス処理
             if not self.__field.is_puttable_coord_exist(self.__current_player_num):
@@ -45,7 +41,7 @@ class Game:
             if self.__is_show_game:
                 print("Turn: " + str(self.__num_of_turn))
                 print("Player: " + str(self.__current_player_num))
-                print(self.__field.get_raw_field() + 1)
+                print(self.__field.get_raw_field().astype('int') + 1)
 
             # プレイヤーに対して座標を訪ねる
             while (not put_result):
@@ -65,7 +61,7 @@ class Game:
                     self.__players[self.__current_player_num].result_(False)
 
             if self.__is_show_game:
-                print(self.__field.get_raw_field() + 1)
+                print(self.__field.get_raw_field().astype('int') + 1)
                 print("0: " + str(GetNumOfPlayerPosition(self.__field.get_raw_field(), 0)))
                 print("1: " + str(GetNumOfPlayerPosition(self.__field.get_raw_field(), 1)))
                 print()
