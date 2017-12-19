@@ -1,10 +1,10 @@
 import numpy as np
+from itertools import product
 
 
 def GetValue(field: np.ndarray, coord: np.ndarray) -> int:
     coord = coord.astype('int')
-    field = field.astype('int')
-    return field[coord[0], coord[1]]
+    return int(field[coord[0], coord[1]])
 
 
 def GetNextPlayer(player_num: int) -> int:
@@ -134,19 +134,18 @@ def GetGettablePositionList(field: np.ndarray, put_coord: np.ndarray, player_num
     return gettable_pos_list
 
 
-def GetNumOfGettablePosition(raw_field: np.ndarray, coord: np.ndarray, player_num: int) -> int:
-    return len(GetGettablePositionList(raw_field, coord, player_num))
+def GetNumOfGettablePosition(field: np.ndarray, coord: np.ndarray, player_num: int) -> int:
+    return len(GetGettablePositionList(field, coord, player_num))
 
 
-def IsCoordValid(raw_field: np.ndarray, coord: np.ndarray, player_num: int) -> bool:
-    return bool(0 < GetNumOfGettablePosition(raw_field, coord, player_num))
+def IsCoordValid(field: np.ndarray, coord: np.ndarray, player_num: int) -> bool:
+    return 0 < GetNumOfGettablePosition(field, coord, player_num)
 
 
-def IsPuttableCoordExist(raw_field: np.ndarray, player_num: int) -> bool:
-    for col in range(raw_field.shape[0]):
-        for row in range(raw_field.shape[1]):
-            if IsCoordValid(raw_field, np.array([col, row]), player_num):
-                return True
+def IsPuttableCoordExist(field: np.ndarray, player_num: int) -> bool:
+    for col, row in product(range(field.shape[0]), range(field.shape[1])):
+        if IsCoordValid(field, np.array([col, row]), player_num):
+            return True
     return False
 
 
@@ -161,9 +160,8 @@ def GetCoordNum(field_size: np.ndarray, coord: np.ndarray) -> np.ndarray:
 def GetField3dimOnehot(field: np.ndarray) -> np.ndarray:
     field3 = np.zeros([field.shape[0], field.shape[1], 3])
 
-    for col in range(field.shape[0]):
-        for row in range(field.shape[1]):
-            field3[col, row, GetValue(field, np.array([col, row])) + 1] = 1
+    for col, row in product(range(field.shape[0]), range(field.shape[1])):
+        field3[col, row, GetValue(field, np.array([col, row])) + 1] = 1
 
     return field3
 
@@ -171,14 +169,13 @@ def GetField3dimOnehot(field: np.ndarray) -> np.ndarray:
 def RestoreField(field: np.ndarray) -> np.ndarray:
     field2 = np.zeros([field.shape[0], field.shape[1]])
 
-    for col in range(field.shape[0]):
-        for row in range(field.shape[1]):
-            if field[col, row, 1] == 1:
-                field2[col, row] = 0
-            elif field[col, row, 2] == 1:
-                field2[col, row] = 1
-            else:
-                field2[col, row] = -1
+    for col, row in product(range(field.shape[0]), range(field.shape[1])):
+        if field[col, row, 1] == 1:
+            field2[col, row] = 0
+        elif field[col, row, 2] == 1:
+            field2[col, row] = 1
+        else:
+            field2[col, row] = -1
 
     return field2
 
@@ -186,17 +183,15 @@ def RestoreField(field: np.ndarray) -> np.ndarray:
 def GetTestCoord(field: np.ndarray) -> np.ndarray:
     field = RestoreField(field)
     coord = np.zeros(field.shape)
-    for col in range(field.shape[0]):
-        for row in range(field.shape[1]):
-            if IsCoordValid(field, np.array([col, row]), 1):
-                coord[col, row] = 1
-    coord = np.reshape(coord, [-1])
+    for col, row in product(range(field.shape[0]), range(field.shape[1])):
+        if IsCoordValid(field, np.array([col, row]), 1):
+            coord[col, row] = 1
+    coord = coord.reshape([-1])
     return coord
 
 
 def ReversePlayernumField(field: np.ndarray) -> np.ndarray:
     field = np.empty(field.shape)
-    for col in range(field.shape[0]):
-        for row in range(field.shape[1]):
-            field[col, row] = GetNextPlayer(field[col, row])
+    for col, row in product(range(field.shape[0]), range(field.shape[1])):
+        field[col, row] = GetNextPlayer(field[col, row])
     return field
