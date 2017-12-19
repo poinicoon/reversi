@@ -8,8 +8,6 @@ from player_base import PlayerBase
 from player_random_all import PlayerRandomAll
 from player_random_valid_only import PlayerRandomValidOnly
 
-config = json.load(open("config.json", "r"))
-
 
 def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
     field_ins = Field(field_size)  # type: Field

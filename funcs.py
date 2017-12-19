@@ -64,19 +64,19 @@ def GetMovedCoord(coord: np.ndarray, direc_num: int, move_size: int) -> np.ndarr
 
 
 def IsCoordInRange(field_size: np.ndarray, coord: np.ndarray) -> bool:
-    return (coord < field_size)[0] and (coord < field_size)[1]
+    return np.all(np.array([-1, -1]) < coord) and np.all(coord < field_size)
 
 
 def GetNumOfPlayerPosition(field: np.ndarray, player_num: int) -> int:
     return field[field == player_num].size
 
 
-def IsEmptyCoordExist(raw_field: np.ndarray) -> bool:
-    return 0 < GetNumOfPlayerPosition(raw_field, -1)
+def IsEmptyCoordExist(field: np.ndarray) -> bool:
+    return 0 < GetNumOfPlayerPosition(field, -1)
 
 
-def GetMostPlayerNumber(raw_field: np.ndarray) -> int:
-    num_of_pos = (GetNumOfPlayerPosition(raw_field, 0), GetNumOfPlayerPosition(raw_field, 1))
+def GetMostPlayerNumber(field: np.ndarray) -> int:
+    num_of_pos = (GetNumOfPlayerPosition(field, 0), GetNumOfPlayerPosition(field, 1))
 
     if num_of_pos[1] < num_of_pos[0]:
         return 0

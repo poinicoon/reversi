@@ -1,8 +1,6 @@
-import os
-import sys
 import numpy as np
 
-from funcs import GetNextPlayer, GetField3dimOnehot, GetCoordNum, GetNumOfPlayerPosition
+from funcs import GetCoordNum, GetField3dimOnehot, GetNextPlayer, GetNumOfPlayerPosition
 from field import Field
 from player_base import PlayerBase
 
@@ -31,7 +29,10 @@ class Game:
 
     def start(self) -> (int, [np.ndarray], [np.ndarray]):
 
-        self.print("Game start.")
+        def print(values):
+            self.print(values)
+
+        print("Game start.")
 
         # 両プレイヤーの置く場所が無くなるまでループ
         while self.__field.is_puttable_coord_exist(0) or self.__field.is_puttable_coord_exist(1):
@@ -72,17 +73,17 @@ class Game:
             self.reverse_player()
             self.increment_turn()
 
-        winner = self.__field.get_most_player_number()  # type: int
+        winner = self.__field.get_most_player_number()
 
         self.__players[0].end_(self.__field.get_field(), winner)
         self.__players[1].end_(self.__field.get_field(), winner)
 
         return winner, self.__datasets_field, self.__datasets_coord
 
-    def __init__(self, field_ins: Field, players_ins: (PlayerBase, PlayerBase), fields: [np.ndarray],
+    def __init__(self, field: Field, players: (PlayerBase, PlayerBase), fields: [np.ndarray],
                  coords: [np.ndarray], show=False) -> None:
-        self.__field = field_ins
-        self.__players = players_ins
+        self.__field = field
+        self.__players = players
 
         self.__current_player_num = np.random.randint(2)
         self.__num_of_turn = 1

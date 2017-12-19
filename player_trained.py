@@ -2,13 +2,12 @@ import json
 import numpy as np
 from keras.models import Sequential, load_model
 
-import player_base
+from config import ModelPath
+from player_base import PlayerBase
 from funcs import GetField3dimOnehot
 
-config = json.load(open("config.json", "r"))
 
-
-class PlayerTrained(player_base.PlayerBase):
+class PlayerTrained(PlayerBase):
     model = None  # type: Sequential
 
     def execute_(self, field: np.ndarray) -> np.ndarray:
@@ -26,4 +25,4 @@ class PlayerTrained(player_base.PlayerBase):
     def __init__(self, player_num: int, field_size: np.ndarray, player_name="Trained") -> None:
         super(PlayerTrained, self).__init__(player_num, field_size, player_name=player_name)
 
-        self.model = load_model(config["model_path"])
+        self.model = load_model(ModelPath)

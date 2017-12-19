@@ -3,13 +3,12 @@ import sys
 import json
 import numpy as np
 
-from funcs import GetCoordNum, GetTestCoord
-
-config = json.load(open("config.json", "r"))
+from config import XTrainPath, YTrainPath, XTestPath, YTestPath
+from funcs import GetTestCoord
 
 # データセット読み込み
-x_train = np.load(config["x_train_path"])
-y_train = np.load(config["y_train_path"])
+x_train = np.load(XTrainPath)
+y_train = np.load(YTrainPath)
 
 y_test = []
 
@@ -19,5 +18,5 @@ for i in range(len(x_train)):
 
 print()
 
-np.save(config["x_test_path"], x_train)
-np.save(config["y_test_path"], y_test)
+np.save(XTestPath, x_train)
+np.save(YTestPath, y_test)

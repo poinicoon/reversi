@@ -7,8 +7,7 @@ from keras.layers import Activation, BatchNormalization, Conv2D, Dense, Dropout,
 from keras.models import Sequential, load_model
 from keras.utils import to_categorical, plot_model
 import matplotlib.pyplot as plt
-
-config = json.load(open("config.json", "r"))
+from config import ModelPath, ModelImagePath, XTrainPath, YTrainPath, XTestPath, YTestPath
 
 
 class Train:
@@ -58,13 +57,13 @@ class Train:
         self.model = model
 
     def load_model(self):
-        self.model = load_model(config["model_path"])
+        self.model = load_model(ModelPath)
 
     def save_model(self):
-        self.model.save(config["model_path"])
+        self.model.save(ModelPath)
 
     def save_png(self):
-        plot_model(self.model, to_file=config["model_image_path"], show_shapes=True)
+        plot_model(self.model, to_file=str(ModelImagePath), show_shapes=True)
 
     def train(self):
         model = self.model
@@ -89,14 +88,14 @@ class Train:
         self.model = model
 
     def __init__(self):
-        self.x_train = np.load(config["x_train_path"])
-        self.y_train = np.load(config["y_train_path"])
-        self.x_test = np.load(config["x_test_path"])
-        self.y_test = np.load(config["y_test_path"])
+        self.x_train = np.load(XTrainPath)
+        self.y_train = np.load(YTrainPath)
+        self.x_test = np.load(XTestPath)
+        self.y_test = np.load(YTestPath)
 
 
 train = Train()
-if os.path.exists(config["model_path"]):
+if ModelPath.exists():
     print("load model")
     train.load_model()
 else:
