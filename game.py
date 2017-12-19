@@ -9,8 +9,8 @@ class Game:
     __field = None  # type: Field
     __players = (None, None)  # type: (PlayerBase)
 
-    __current_player_num = -1
-    __num_of_turn = -1
+    __current_player_num = None  # type: int
+    __num_of_turn = None  # type: int
 
     __datasets_field = []  # type: [np.ndarray]
     __datasets_coord = []  # type: [np.ndarray]
@@ -78,7 +78,7 @@ class Game:
         return winner, self.__datasets_field, self.__datasets_coord
 
     def __init__(self, field_ins: Field, players_ins: (PlayerBase, PlayerBase), fields: [np.ndarray],
-                 coords: [np.ndarray], show=False):
+                 coords: [np.ndarray], show=False) -> None:
         self.__field = field_ins
         self.__players = players_ins
 

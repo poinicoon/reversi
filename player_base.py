@@ -2,20 +2,20 @@ import numpy as np
 
 
 class PlayerBase:
-    __player_num = -1  # type: int
-    __player_name = ""  # type: str
-    __field_size = np.empty(2)  # type: np.ndarray
+    __player_num = None  # type: int
+    __player_name = None  # type: str
+    __field_size = None  # type: np.ndarray
 
-    def execute_(self, raw_field: np.ndarray) -> np.ndarray:
-        return np.array([-1, -1])
+    def execute_(self, field: np.ndarray) -> np.ndarray:
+        return np.empty([2])
 
     def result_(self, result: bool) -> None:
         return
 
-    def pass_(self, raw_field: np.ndarray) -> None:
+    def pass_(self, field: np.ndarray) -> None:
         return
 
-    def end_(self, raw_field: np.ndarray, winner: int) -> None:
+    def end_(self, field: np.ndarray, winner: int) -> None:
         return
 
     def get_player_number(self) -> int:

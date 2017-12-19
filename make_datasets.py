@@ -13,23 +13,22 @@ config = json.load(open("config.json", "r"))
 
 
 def play_game(field_size: np.ndarray, fields, coords) -> (int, [np.ndarray], [np.ndarray]):
-    field_ins = Field(field_size)  # type: Field
-    players_ins = (
-        PlayerRandomValidOnly(0, field_size), PlayerRandomValidOnly(1, field_size))  # type: (PlayerBase, PlayerBase)
+    field_ins = Field(field_size)
+    players_ins = (PlayerRandomValidOnly(0, field_size), PlayerRandomValidOnly(1, field_size))
 
-    game_ins = Game(field_ins, players_ins, fields, coords)  # type: Game
+    game_ins = Game(field_ins, players_ins, fields, coords)
     winner, fields, coords = game_ins.start()
 
     return winner, fields, coords
 
 
 # フィールドサイズ
-field_size = np.array([6, 6])  # type: np.ndarray
+field_size = np.array([6, 6])
 
 fields = []  # type: [np.ndarray]
 coords = []  # type: [np.ndarray]
 
-epoch = 1000  # type: int
+epoch = 1000
 
 for i in range(epoch):
     sys.stdout.write("\r" + "make_datasets: " + str(i + 1) + "/" + str(epoch))

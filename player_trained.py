@@ -23,7 +23,7 @@ class PlayerTrained(player_base.PlayerBase):
 
         return coord
 
-    def __init__(self, player_num: int, field_size: np.ndarray, player_name="Trained"):
+    def __init__(self, player_num: int, field_size: np.ndarray, player_name="Trained") -> None:
         super(PlayerTrained, self).__init__(player_num, field_size, player_name=player_name)
 
         self.model = load_model(config["model_path"])

@@ -11,12 +11,15 @@ class Field:
         coord = coord.astype('int')
         self.__field[coord[0], coord[1]] = value
 
-    def get_field_size(self) -> np.ndarray:
-        return np.array(self.__field.shape)
-
     def get_value(self, coord: np.ndarray) -> int:
         coord = coord.astype('int')
-        return self.__field[coord[0], coord[1]]
+        return int(self.__field[coord[0], coord[1]])
+
+    def get_field(self) -> np.ndarray:
+        return self.__field
+
+    def get_field_size(self) -> np.ndarray:
+        return np.array(self.__field.shape)
 
     def is_coord_in_range(self, coord: np.ndarray) -> bool:
         return IsCoordInRange(self.__field, coord)
@@ -42,9 +45,6 @@ class Field:
     def get_num_of_gettable_position(self, coord: np.ndarray, player_num: int) -> int:
         return GetNumOfGettablePosition(self.__field, coord, player_num)
 
-    def get_field(self) -> np.ndarray:
-        return self.__field
-
     def put(self, coord: np.ndarray, player_num: int) -> bool:
         if self.is_coord_valid(coord, player_num):
             put_coord_list = self.get_gettable_position_list(coord, player_num)  # type: [np.ndarray]
@@ -55,10 +55,10 @@ class Field:
             return False
 
     def __init__(self, field_size: np.ndarray) -> None:
-        ul = GetCenterCoord(field_size, 0)  # type: np.ndarray
-        ur = GetCenterCoord(field_size, 1)  # type: np.ndarray
-        dl = GetCenterCoord(field_size, 2)  # type: np.ndarray
-        dr = GetCenterCoord(field_size, 3)  # type: np.ndarray
+        ul = GetCenterCoord(field_size, 0)
+        ur = GetCenterCoord(field_size, 1)
+        dl = GetCenterCoord(field_size, 2)
+        dr = GetCenterCoord(field_size, 3)
 
         self.__field = np.empty(field_size)
         self.__field.fill(-1)
