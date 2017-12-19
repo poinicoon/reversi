@@ -1,5 +1,3 @@
-import os
-import json
 import numpy as np
 # from keras import backend as K
 # from keras.callbacks import EarlyStopping
