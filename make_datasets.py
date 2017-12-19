@@ -4,16 +4,18 @@ import numpy as np
 import config
 from field import Field
 from game import Game
-from player_base import PlayerBase
-from player_random_all import PlayerRandomAll
+# from player_human import PlayerHuman
+# from player_trained import PlayerTrained
+# from player_max import PlayerMax
+# from player_random_all import PlayerRandomAll
 from player_random_valid_only import PlayerRandomValidOnly
 
 
 def play_game(field_size: np.ndarray, fields, coords) -> (int, [np.ndarray], [np.ndarray]):
-    field_ins = Field(field_size)
-    players_ins = (PlayerRandomValidOnly(0, field_size), PlayerRandomValidOnly(1, field_size))
+    field = Field(field_size)
+    players = (PlayerRandomValidOnly(0, field_size), PlayerRandomValidOnly(1, field_size))
 
-    game_ins = Game(field_ins, players_ins, fields, coords)
+    game_ins = Game(field, players, fields, coords)
     winner, fields, coords = game_ins.start()
 
     return winner, fields, coords

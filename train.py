@@ -3,7 +3,7 @@ import numpy as np
 # from keras.callbacks import EarlyStopping
 from keras.layers import Activation, BatchNormalization, Conv2D, Dense, Dropout, Flatten, InputLayer, MaxPooling2D
 from keras.models import Sequential, load_model
-from keras.utils import to_categorical, plot_model
+from keras.utils import plot_model
 import matplotlib.pyplot as plt
 from config import ModelPath, ModelImagePath, XTrainPath, YTrainPath, XTestPath, YTestPath
 
