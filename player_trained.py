@@ -1,4 +1,3 @@
-import json
 import numpy as np
 from keras.models import Sequential, load_model
 
@@ -12,7 +11,7 @@ class PlayerTrained(PlayerBase):
 
     def execute_(self, field: np.ndarray) -> np.ndarray:
         field_size = self.get_field_size()
-        coord_list = self.model.predict(GetField3dimOnehot(field))  # type: np.ndarray
+        coord_list = self.model.predict(GetField3dimOnehot(field))
 
         coord_avg = np.average(coord_list)
         coord_list = [i for i in coord_list[0] if coord_avg < i]
