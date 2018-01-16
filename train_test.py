@@ -17,3 +17,5 @@ output = model.predict(input)
 np.set_printoptions(precision=3)
 
 print(output.reshape(6, 6) * 100)
+
+
