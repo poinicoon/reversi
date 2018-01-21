@@ -1,5 +1,5 @@
 import numpy as np
-from keras.layers import Activation, Conv2D, Flatten, InputLayer
+from keras.layers import Activation, Conv2D, Flatten, InputLayer, Reshape
 from keras.models import Sequential, load_model
 from keras.utils import plot_model
 import matplotlib.pyplot as plt
@@ -40,6 +40,7 @@ class Train:
         plt.show()
 
     def make_model(self):
+        print(self.x_train.shape[1:3])
         model = Sequential()
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
         model.add(Conv2D(64, (5, 5), padding='same', activation='relu'))
@@ -48,6 +49,7 @@ class Train:
         model.add(Flatten())
         model.add(Activation('relu'))
         model.add(Activation('softmax'))
+        # model.add(Reshape((self.x_train.shape[1:3])))
 
         model.compile(loss='categorical_crossentropy', optimizer="SGD", metrics=['accuracy'])
 
