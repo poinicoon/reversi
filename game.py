@@ -29,10 +29,7 @@ class Game:
 
     def start(self) -> (int, [np.ndarray], [np.ndarray]):
 
-        def print(values):
-            self.print(values)
-
-        print("Game start.")
+        self.print("Game start.")
 
         # 両プレイヤーの置く場所が無くなるまでループ
         while self.__field.is_puttable_coord_exist(0) or self.__field.is_puttable_coord_exist(1):

@@ -1,7 +1,5 @@
 import numpy as np
-# from keras import backend as K
-# from keras.callbacks import EarlyStopping
-from keras.layers import Activation, BatchNormalization, Conv2D, Dense, Dropout, Flatten, InputLayer, MaxPooling2D
+from keras.layers import Activation, Conv2D, Flatten, InputLayer
 from keras.models import Sequential, load_model
 from keras.utils import plot_model
 import matplotlib.pyplot as plt
@@ -70,7 +68,6 @@ class Train:
         batch_size = 64
         epochs = 100
         callbacks = []
-        # callbacks.append(EarlyStopping())
 
         history = model.fit(self.x_train,
                             self.y_train,
