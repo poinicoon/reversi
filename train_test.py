@@ -49,5 +49,13 @@ for col in range(output.shape[0]):
 
 print()
 
-print("平均値:", end="")
-print(np.average(output))
+avg = np.average(output)
+
+print("平均値: ", end="")
+print(avg)
+
+print("座標: ", end="")
+for col in range(output.shape[0]):
+    for row in range(output.shape[1]):
+        if output[col, row] > avg:
+            print("(" + col + ", " + row + "),", end="")
