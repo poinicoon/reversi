@@ -36,6 +36,18 @@ for col in range(input.shape[1]):
 
 print()
 
+input2 = np.zeros(input.shape[1:3])
+for col in range(input2.shape[0]):
+    for row in range(input2.shape[1]):
+        if input[0, col, row, 0] == 1:
+            continue
+        elif input[0, col, row, 1] == 1:
+            input2[col, row] = 1
+        elif input[0, col, row, 2] == 1:
+            input2[col, row] = 2
+
+print(input2)
+
 model = keras.models.load_model(config.ModelPath)
 
 output = model.predict(input)
