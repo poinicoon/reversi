@@ -190,7 +190,7 @@ def GetTestCoord(field: np.ndarray) -> np.ndarray:
     for col, row in product(range(field.shape[0]), range(field.shape[1])):
         if IsCoordValid(field, np.array([col, row]), 1):
             coord[col, row] = 1
-    coord = coord.reshape([-1])
+    coord = coord.reshape([-1])  # flatten
     return coord
 
 

@@ -40,13 +40,14 @@ class Train:
         plt.show()
 
     def make_model(self):
+        size = self.x_train.shape[1]
         print(self.x_train.shape[1:3])
         model = Sequential()
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
-        for i in range(1, self.x_train.shape[1]):
-            model.add(Conv2D(64, (i, i), padding='same', activation='relu'))
+        for i in range(size):
+            model.add(Conv2D(64, (size - i, size - i), padding='same', activation='relu'))
             # model.add(MaxPool2D(pool_size=(1, 1)))
-        model.add(Conv2D(1, self.x_train.shape[1:3], padding='same', activation='relu', use_bias=True))
+        model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
         # model.add(MaxPool2D(pool_size=(1, 1)))
         model.add(Flatten())
         model.add(Activation('relu'))
