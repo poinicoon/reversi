@@ -1,5 +1,5 @@
 import numpy as np
-from keras.layers import Activation, Conv2D, Flatten, InputLayer, Reshape, MaxPooling2D
+from keras.layers import Activation, Conv2D, Flatten, InputLayer, Reshape, MaxPool2D
 from keras.models import Sequential, load_model
 from keras.utils import plot_model
 import matplotlib.pyplot as plt
@@ -45,8 +45,9 @@ class Train:
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
         for i in range(1, self.x_train.shape[1]):
             model.add(Conv2D(64, (i, i), padding='same', activation='relu'))
-            model.add(MaxPooling2D(pool_size=(i, i)))
-        model.add(Conv2D(1, self.x_train.shape[1:], padding='same', activation='relu', use_bias=True))
+            model.add(MaxPool2D(pool_size=(1, 1)))
+        model.add(Conv2D(1, self.x_train.shape[1:3], padding='same', activation='relu', use_bias=True))
+        model.add(MaxPool2D(pool_size=(1, 1)))
         model.add(Flatten())
         model.add(Activation('relu'))
         model.add(Activation('softmax'))
