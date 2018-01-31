@@ -46,9 +46,9 @@ class Train:
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
         for i in range(size):
             model.add(Conv2D(64, (size - i, size - i), padding='same', activation='relu'))
-            # model.add(MaxPool2D(pool_size=(1, 1)))
+            model.add(MaxPool2D(pool_size=(1, 1)))
         model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
-        # model.add(MaxPool2D(pool_size=(1, 1)))
+        model.add(MaxPool2D(pool_size=(1, 1)))
         model.add(Flatten())
         model.add(Activation('relu'))
         model.add(Activation('softmax'))
