@@ -1,5 +1,5 @@
 import numpy as np
-from keras.layers import Activation, Conv2D, Flatten, InputLayer, Reshape, MaxPool2D
+from keras.layers import Activation, Conv2D, Flatten, InputLayer, Reshape, MaxPool2D, BatchNormalization
 from keras.models import Sequential, load_model
 from keras.utils import plot_model
 import matplotlib.pyplot as plt
@@ -44,11 +44,18 @@ class Train:
         print(self.x_train.shape[1:3])
         model = Sequential()
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
-        for i in range(size):
-            model.add(Conv2D(64, (size - i, size - i), padding='same', activation='relu'))
-            model.add(MaxPool2D(pool_size=(1, 1)))
-        model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
+        model.add(Conv2D(32, (1, 1), padding='same', activation='relu'))
         model.add(MaxPool2D(pool_size=(1, 1)))
+        model.add(BatchNormalization())
+        model.add(Conv2D(32, (size[0]/2, size[1]/2), padding='same', activation='relu'))
+        model.add(MaxPool2D(pool_size=(1, 1)))
+        model.add(BatchNormalization())
+        model.add(Conv2D(32, size, padding='same', activation='relu'))
+        model.add(MaxPool2D(pool_size=(1, 1)))
+        model.add(BatchNormalization())
+        model.add(Conv2D(1, size, padding='same', activation='relu', use_bias=True))
+        model.add(MaxPool2D(pool_size=(1, 1)))
+        model.add(BatchNormalization())
         model.add(Flatten())
         model.add(Activation('relu'))
         model.add(Activation('softmax'))
