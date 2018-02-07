@@ -65,6 +65,7 @@ class Train:
         self.x_test = np.load(XTestPath)
         self.y_test = np.load(YTestPath)
 
+
 if __name__ == "__main__":
     train = Train()
     if ModelPath.exists():
