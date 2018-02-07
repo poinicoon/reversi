@@ -1,6 +1,4 @@
-import os
 import sys
-import json
 import numpy as np
 
 from config import XTrainPath, YTrainPath, XTestPath, YTestPath

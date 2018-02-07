@@ -19,10 +19,11 @@ def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
     return winner, fields, coords
 
 
-# フィールドサイズ
-field_size = np.array([6, 6])
+if __name__ == "__main__":
+    # フィールドサイズ
+    field_size = np.array([6, 6])
 
-winner, fields, coords = play_game(field_size)
+    winner, fields, coords = play_game(field_size)
 
-print("Winner: " + str(winner))
-print()
+    print("Winner: " + str(winner))
+    print()

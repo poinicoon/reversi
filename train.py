@@ -1,8 +1,7 @@
 import numpy as np
-from keras.layers import Activation, Conv2D, Flatten, InputLayer, Reshape, MaxPool2D, BatchNormalization
+from keras.layers import Activation, Conv2D, Flatten, InputLayer
 from keras.models import Sequential, load_model
 from keras.utils import plot_model
-import matplotlib.pyplot as plt
 
 from config import ModelPath, ModelImagePath, XTrainPath, YTrainPath, XTestPath, YTestPath
 
@@ -14,30 +13,6 @@ class Train:
     y_test = None  # type: np.ndarray
 
     model = None  # type: Sequential
-
-    def plot(self, epochs, history):
-        loss = history.history['loss']
-        val_loss = history.history['val_loss']
-
-        plt.plot(range(epochs), loss, marker='.', label='loss')
-        plt.plot(range(20), val_loss, marker='.', label='val_loss')
-        plt.legend(loc='best', fontsize=10)
-        plt.grid()
-        plt.xlabel('epoch')
-        plt.ylabel('loss')
-        plt.show()
-
-        acc = history.history['acc']
-        val_acc = history.history['val_acc']
-
-        # accuracyのグラフ
-        plt.plot(range(20), acc, marker='.', label='acc')
-        plt.plot(range(20), val_acc, marker='.', label='val_acc')
-        plt.legend(loc='best', fontsize=10)
-        plt.grid()
-        plt.xlabel('epoch')
-        plt.ylabel('acc')
-        plt.show()
 
     def make_model(self):
         print(self.x_train.shape[1:3])
@@ -90,14 +65,14 @@ class Train:
         self.x_test = np.load(XTestPath)
         self.y_test = np.load(YTestPath)
 
-
-train = Train()
-if ModelPath.exists():
-    print("load model")
-    train.load_model()
-else:
-    print("make model")
-    train.make_model()
-    train.save_png()
-train.train()
-train.save_model()
+if __name__ == "__main__":
+    train = Train()
+    if ModelPath.exists():
+        print("load model")
+        train.load_model()
+    else:
+        print("make model")
+        train.make_model()
+        train.save_png()
+    train.train()
+    train.save_model()
