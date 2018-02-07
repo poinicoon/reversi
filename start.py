@@ -2,11 +2,11 @@ import numpy as np
 
 from field import Field
 from game import Game
-# from player_human import PlayerHuman
-# from player_trained import PlayerTrained
-# from player_max import PlayerMax
-# from player_random_all import PlayerRandomAll
-from player_random_valid_only import PlayerRandomValidOnly
+# from player import PlayerHuman
+# from player import PlayerTrained
+# from player import PlayerMax
+# from player import PlayerRandomAll
+from player import PlayerRandomValidOnly
 
 
 def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):

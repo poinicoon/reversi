@@ -2,7 +2,7 @@ import numpy as np
 
 from funcs import GetCoordNum, GetField3dimOnehot, GetNextPlayer, GetNumOfPlayerPosition
 from field import Field
-from player_base import PlayerBase
+from player import PlayerBase
 
 
 class Game:
