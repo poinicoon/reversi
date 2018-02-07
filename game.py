@@ -7,7 +7,7 @@ from player import PlayerBase
 
 class Game:
     __field = None  # type: Field
-    __players = (None, None)  # type: (PlayerBase)
+    __players = (None, None)  # type: (PlayerBase, PlayerBase)
 
     __current_player_num = None  # type: int
     __num_of_turn = None  # type: int
