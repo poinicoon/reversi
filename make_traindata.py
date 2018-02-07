@@ -21,26 +21,26 @@ def play_game(field_size: np.ndarray, fields, coords) -> (int, [np.ndarray], [np
     return winner, fields, coords
 
 
-# フィールドサイズ
-field_size = np.array([6, 6])
+if __name__ == "__main__":
 
-fields = []  # type: [np.ndarray]
-coords = []  # type: [np.ndarray]
+    # フィールドサイズ
+    field_size = np.array([6, 6])
 
-epoch = 1000
+    fields = []  # type: [np.ndarray]
+    coords = []  # type: [np.ndarray]
 
-for i in range(epoch):
-    sys.stdout.write("\r" + "make_datasets: " + str(i + 1) + "/" + str(epoch))
-    winner, fields, coords = play_game(field_size, fields, coords)
-print()
+    epoch = 1000
 
-if not config.WorkDir.exists():
-    config.WorkDir.mkdir()
+    for i in range(epoch):
+        sys.stdout.write("\r" + "make_datasets: " + str(i + 1) + "/" + str(epoch))
+        winner, fields, coords = play_game(field_size, fields, coords)
+    print()
 
-np.save(config.XTrainPath, fields)
-np.save(config.YTrainPath, coords)
+    if not config.WorkDir.exists():
+        config.WorkDir.mkdir()
 
+    np.save(config.XTrainPath, fields)
+    np.save(config.YTrainPath, coords)
 
-
-print("Saved Datasets: " + str(len(coords)))
-print()
+    print("Saved Datasets: " + str(len(coords)))
+    print()
