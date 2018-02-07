@@ -1,5 +1,6 @@
 import numpy as np
 from keras.layers import Activation, Conv2D, Flatten, InputLayer
+from keras.layers.pooling import MaxPooling2D
 from keras.models import Sequential, load_model
 from keras.utils import plot_model
 
@@ -12,13 +13,10 @@ class Train:
     y_train = None  # type: np.ndarray
     y_test = None  # type: np.ndarray
 
-    model = None  # type: Sequential
-
     def make_model(self):
-        print(self.x_train.shape[1:3])
         model = Sequential()
         model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
-        model.add(Conv2D(64, (6, 6), padding='same', activation='relu'))
+        model.add(Conv2D(64, self.x_train.shape[1:3], padding='same', activation='relu'))
         model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
         model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
         model.add(Flatten())
@@ -27,19 +25,18 @@ class Train:
 
         model.compile(loss='categorical_crossentropy', optimizer="SGD", metrics=['accuracy'])
 
-        self.model = model
+        return model
 
     def load_model(self):
-        self.model = load_model(ModelPath)
+        return load_model(ModelPath)
 
-    def save_model(self):
-        self.model.save(ModelPath)
+    def save_model(self, model):
+        model.save(ModelPath)
 
-    def save_png(self):
-        plot_model(self.model, to_file=str(ModelImagePath), show_shapes=True)
+    def save_png(self, model):
+        plot_model(model, to_file=str(ModelImagePath), show_shapes=True)
 
-    def train(self):
-        model = self.model
+    def train(self, model):
 
         batch_size = 64
         epochs = 100
@@ -57,7 +54,7 @@ class Train:
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
 
-        self.model = model
+        return model
 
     def __init__(self):
         self.x_train = np.load(XTrainPath)
@@ -70,10 +67,10 @@ if __name__ == "__main__":
     train = Train()
     if ModelPath.exists():
         print("load model")
-        train.load_model()
+        model = train.load_model()
     else:
         print("make model")
-        train.make_model()
-        train.save_png()
-    train.train()
-    train.save_model()
+        model = train.make_model()
+        train.save_png(model)
+    model = train.train(model)
+    train.save_model(model)
