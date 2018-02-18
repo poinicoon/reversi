@@ -1,6 +1,8 @@
 from pathlib import Path
 
-WorkDir = Path.home().joinpath(".reversi_nn")
+ProjectName = "reversi_nn"
+
+WorkDir = Path.home().joinpath("." + ProjectName)
 
 ModelPath = WorkDir.joinpath("model.h5")
 ModelImagePath = WorkDir.joinpath("model.png")
