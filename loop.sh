@@ -1,16 +1,10 @@
 #!/bin/bash -eu
 
-epoch=1000
+python3 make_traindata.py
+python3 make_testdata.py
 
-python3 make_datasets.py
-python3 make_testdata_from_datasets.py
-# python3 make_testdata_split_datasets.py
-
-for ((i=0 ; i<$epoch ; i++))
+while true
 do
-	echo "loop: "$((i+1))"/"$epoch
-
-	python3 train.py
-	python3 make_datasets.py
-
+  python3 make_traindata.py
+  python3 train.py
 done
