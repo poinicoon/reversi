@@ -1,12 +1,12 @@
 import sys
 import numpy as np
 
-from config import XTrainPath, YTrainPath, XTestPath, YTestPath
+from config import PATH_XTRAIN, PATH_YTRAIN, PATH_XTEST, PATH_YTEST
 from funcs import GetTestCoord, Softmax
 
 # データセット読み込み
-x_train = np.load(XTrainPath)
-y_train = np.load(YTrainPath)
+x_train = np.load(PATH_XTRAIN)
+y_train = np.load(PATH_YTRAIN)
 
 y_test = []
 
@@ -16,5 +16,5 @@ for i in range(len(x_train)):
 
 print()
 
-np.save(XTestPath, x_train)
-np.save(YTestPath, y_test)
+np.save(PATH_XTEST, x_train)
+np.save(PATH_YTEST, y_test)

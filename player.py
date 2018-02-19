@@ -2,7 +2,7 @@ import numpy as np
 from itertools import product
 from keras.models import Sequential, load_model
 
-from config import ModelPath
+from config import PATH_MODEL
 from funcs import IsCoordValid, GetNumOfGettablePosition, GetField3dimOnehot
 
 
@@ -110,4 +110,4 @@ class PlayerTrained(PlayerBase):
     def __init__(self, player_num: int, field_size: np.ndarray, player_name="Trained") -> None:
         super(PlayerTrained, self).__init__(player_num, field_size, player_name=player_name)
 
-        self.model = load_model(ModelPath)
+        self.model = load_model(PATH_MODEL)

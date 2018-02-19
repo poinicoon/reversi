@@ -2,12 +2,12 @@ from pathlib import Path
 
 ProjectName = "reversi_nn"
 
-WorkDir = Path.home().joinpath("." + ProjectName)
+DIR_CONFIG = Path.home().joinpath("." + ProjectName)
 
-ModelPath = WorkDir.joinpath("model.h5")
-ModelImagePath = WorkDir.joinpath("model.png")
+PATH_MODEL = DIR_CONFIG.joinpath("model.h5")
+PATH_MODELIMAGE = DIR_CONFIG.joinpath("model.png")
 
-XTrainPath = WorkDir.joinpath("x_train.npy")
-YTrainPath = WorkDir.joinpath("y_train.npy")
-XTestPath = WorkDir.joinpath("x_test.npy")
-YTestPath = WorkDir.joinpath("y_test.npy")
+PATH_XTRAIN = DIR_CONFIG.joinpath("x_train.npy")
+PATH_YTRAIN = DIR_CONFIG.joinpath("y_train.npy")
+PATH_XTEST = DIR_CONFIG.joinpath("x_test.npy")
+PATH_YTEST = DIR_CONFIG.joinpath("y_test.npy")

@@ -3,7 +3,7 @@ from keras.layers import Activation, BatchNormalization, Conv2D, Flatten, InputL
 from keras.models import Sequential, load_model
 from keras.utils import plot_model
 
-from config import ModelPath, ModelImagePath, XTrainPath, YTrainPath, XTestPath, YTestPath
+from config import PATH_MODEL, PATH_MODELIMAGE, PATH_XTRAIN, PATH_YTRAIN, PATH_XTEST, PATH_YTEST
 
 
 class Train:
@@ -60,13 +60,13 @@ class Train:
         return model
 
     def load_model(self) -> Sequential:
-        return load_model(ModelPath)
+        return load_model(PATH_MODEL)
 
     def save_model(self, model) -> None:
-        model.save(ModelPath)
+        model.save(PATH_MODEL)
 
     def save_png(self, model) -> None:
-        plot_model(model, to_file=str(ModelImagePath), show_shapes=True)
+        plot_model(model, to_file=str(PATH_MODELIMAGE), show_shapes=True)
 
     def train(self, model) -> Sequential:
         batch_size = 64
@@ -86,20 +86,19 @@ class Train:
         return model
 
     def __init__(self):
-        self.x_train = np.load(XTrainPath)
-        self.y_train = np.load(YTrainPath)
-        self.x_test = np.load(XTestPath)
-        self.y_test = np.load(YTestPath)
+        self.x_train = np.load(PATH_XTRAIN)
+        self.y_train = np.load(PATH_YTRAIN)
+        self.x_test = np.load(PATH_XTEST)
+        self.y_test = np.load(PATH_YTEST)
 
 
 if __name__ == "__main__":
     train = Train()
-    if ModelPath.exists():
-        print("load model")
+    if PATH_MODEL.exists():
         model = train.load_model()
     else:
-        print("make model")
         model = train.make_model()
         train.save_png(model)
+
     model = train.train(model)
     train.save_model(model)

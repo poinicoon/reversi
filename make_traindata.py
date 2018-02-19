@@ -26,21 +26,21 @@ if __name__ == "__main__":
     # フィールドサイズ
     field_size = np.array([6, 6])
 
-    fields = []  # type: [np.ndarray]
-    coords = []  # type: [np.ndarray]
+    x_train = []  # type: [np.ndarray]
+    y_train = []  # type: [np.ndarray]
 
     epoch = 1000
 
     for i in range(epoch):
         sys.stdout.write("\r" + "make_datasets: " + str(i + 1) + "/" + str(epoch))
-        winner, fields, coords = play_game(field_size, fields, coords)
+        winner, x_train, y_train = play_game(field_size, x_train, y_train)
     print()
 
-    if not config.WorkDir.exists():
-        config.WorkDir.mkdir()
+    if not config.DIR_CONFIG.exists():
+        config.DIR_CONFIG.mkdir()
 
-    np.save(config.XTrainPath, fields)
-    np.save(config.YTrainPath, coords)
+    np.save(config.PATH_XTRAIN, x_train)
+    np.save(config.PATH_YTRAIN, y_train)
 
-    print("Saved Datasets: " + str(len(coords)))
+    print("Saved Datasets: " + str(len(y_train)))
     print()

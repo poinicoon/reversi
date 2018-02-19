@@ -2,7 +2,7 @@ import os
 import numpy as np
 import keras
 
-from config import ModelPath
+from config import PATH_MODEL
 from funcs import GetField3dimOnehot
 
 if __name__ == "__main__":
@@ -15,7 +15,7 @@ if __name__ == "__main__":
                       [0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0]])
 
-    model = keras.models.load_model(ModelPath)
+    model = keras.models.load_model(PATH_MODEL)
 
     output = model.predict(GetField3dimOnehot(input - 1).reshape([1, 6, 6, 3]))
     output = output.reshape(input.shape)
