@@ -2,20 +2,20 @@ import numpy as np
 
 from funcs import GetCoordNum, GetField3dimOnehot, GetNextPlayer, GetNumOfPlayerPosition
 from field import Field
-from player import PlayerBase
+from player import Player
 
 
 class Game:
     __field = None  # type: Field
-    __players = (None, None)  # type: (PlayerBase, PlayerBase)
+    __players = (None, None)  # type: (Player, Player)
 
     __current_player_num = None  # type: int
     __num_of_turn = None  # type: int
 
-    __datasets_field = []  # type: [np.ndarray]
-    __datasets_coord = []  # type: [np.ndarray]
+    __x = None  # type: [np.ndarray]
+    __y = None  # type: [np.ndarray]
 
-    __is_show_game = False
+    __is_show_game = True
 
     def reverse_player(self) -> None:
         self.__current_player_num = GetNextPlayer(self.__current_player_num)
@@ -56,8 +56,8 @@ class Game:
                 if put_result:
                     self.__players[self.__current_player_num].result_(True)
                     if self.__current_player_num == 1:
-                        self.__datasets_field.append(GetField3dimOnehot(tmp_field))
-                        self.__datasets_coord.append(GetCoordNum(self.__field.get_field_size(), put_coord))
+                        self.__x.append(GetField3dimOnehot(tmp_field))
+                        self.__y.append(GetCoordNum(self.__field.get_field_size(), put_coord))
                 else:
                     self.__players[self.__current_player_num].result_(False)
 
@@ -72,20 +72,16 @@ class Game:
 
         winner = self.__field.get_most_player_number()
 
-        self.__players[0].end_(self.__field.get_field(), winner)
-        self.__players[1].end_(self.__field.get_field(), winner)
+        return winner, np.array(self.__x), np.array(self.__y)
 
-        return winner, self.__datasets_field, self.__datasets_coord
-
-    def __init__(self, field: Field, players: (PlayerBase, PlayerBase), fields: [np.ndarray],
-                 coords: [np.ndarray], show=False) -> None:
+    def __init__(self, field: Field, players: (Player, Player), show=False) -> None:
         self.__field = field
         self.__players = players
 
         self.__current_player_num = np.random.randint(2)
         self.__num_of_turn = 1
 
-        self.__datasets_field = fields
-        self.__datasets_coord = coords
+        self.__x = []
+        self.__y = []
 
         self.__is_show_game = show

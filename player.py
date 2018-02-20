@@ -2,11 +2,12 @@ import numpy as np
 from itertools import product
 from keras.models import Sequential, load_model
 
-from config import PATH_MODEL
+from config import MODEL_PATH
 from funcs import IsCoordValid, GetNumOfGettablePosition, GetField3dimOnehot
 
 
-class PlayerBase:
+# プレイヤープログラムの基底クラス
+class Player:
     __player_num = None  # type: int
     __player_name = None  # type: str
     __field_size = None  # type: np.ndarray
@@ -18,9 +19,6 @@ class PlayerBase:
         return
 
     def pass_(self, field: np.ndarray) -> None:
-        return
-
-    def end_(self, field: np.ndarray, winner: int) -> None:
         return
 
     def get_player_number(self) -> int:
@@ -38,7 +36,8 @@ class PlayerBase:
         self.__field_size = field_size
 
 
-class PlayerHuman(PlayerBase):
+# プレイヤーが直接入力するプレイヤープログラム
+class PlayerHuman(Player):
     def execute_(self, field: np.ndarray) -> np.ndarray:
         print("col >>> ", end="")
         col = int(input())
@@ -50,15 +49,8 @@ class PlayerHuman(PlayerBase):
         super(PlayerHuman, self).__init__(player_num, field_size, player_name=player_name)
 
 
-class PlayerRandomAll(PlayerBase):
-    def execute_(self, field: np.ndarray) -> np.ndarray:
-        return np.array([np.random.randint(field.shape[0]), np.random.randint(field.shape[1])])
-
-    def __init__(self, player_num: int, field_size: np.array, *, player_name="RandomAll") -> None:
-        super(PlayerRandomAll, self).__init__(player_num, field_size, player_name=player_name)
-
-
-class PlayerRandomValidOnly(PlayerBase):
+# 石を置ける座標をランダムに決定するプレイヤープログラム
+class PlayerRandom(Player):
     def execute_(self, field: np.ndarray) -> np.ndarray:
 
         put_coord_list = []  # type: [np.ndarray]
@@ -71,10 +63,11 @@ class PlayerRandomValidOnly(PlayerBase):
         return put_coord_list[np.random.randint(len(put_coord_list))]
 
     def __init__(self, player_num: int, field_size: np.array, *, player_name="RandomValidOnly") -> None:
-        super(PlayerRandomValidOnly, self).__init__(player_num, field_size, player_name=player_name)
+        super(PlayerRandom, self).__init__(player_num, field_size, player_name=player_name)
 
 
-class PlayerMax(PlayerBase):
+# 取れる石数が最大になる座標を指定するプレイヤープログラム
+class PlayerMax(Player):
     def execute_(self, field: np.ndarray) -> np.ndarray:
 
         max_num = 0
@@ -92,7 +85,8 @@ class PlayerMax(PlayerBase):
         super(PlayerMax, self).__init__(player_num, field_size, player_name=player_name)
 
 
-class PlayerTrained(PlayerBase):
+# 訓練済みモデルから石を置く座標を決定するプレイヤープログラム
+class PlayerTrained(Player):
     model = None  # type: Sequential
 
     def execute_(self, field: np.ndarray) -> np.ndarray:
@@ -110,4 +104,4 @@ class PlayerTrained(PlayerBase):
     def __init__(self, player_num: int, field_size: np.ndarray, player_name="Trained") -> None:
         super(PlayerTrained, self).__init__(player_num, field_size, player_name=player_name)
 
-        self.model = load_model(PATH_MODEL)
+        self.model = load_model(MODEL_PATH)

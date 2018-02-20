@@ -1,12 +1,14 @@
 import os
+import sys
 import numpy as np
-import keras
-
-from config import PATH_MODEL
+from keras.models import load_model
 from funcs import GetField3dimOnehot
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 if __name__ == "__main__":
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+    model_path = sys.argv[1]
+    model = load_model(model_path)
 
     input = np.array([[0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0],
@@ -14,8 +16,6 @@ if __name__ == "__main__":
                       [0, 0, 2, 1, 0, 0],
                       [0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0]])
-
-    model = keras.models.load_model(PATH_MODEL)
 
     output = model.predict(GetField3dimOnehot(input - 1).reshape([1, 6, 6, 3]))
     output = output.reshape(input.shape)
