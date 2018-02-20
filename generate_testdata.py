@@ -1,7 +1,5 @@
 import sys
 import numpy as np
-
-from config import WORK_DIR, X_TEST_PATH, Y_TEST_PATH
 from funcs import GetTestCoord, Softmax
 from field import Field
 from game import Game
@@ -23,7 +21,6 @@ if __name__ == "__main__":
     x_test_path = sys.argv[1]
     y_test_path = sys.argv[2]
 
-    # フィールドサイズ
     field_size = np.array([6, 6])
 
     epoch = 10

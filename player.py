@@ -1,8 +1,6 @@
 import numpy as np
 from itertools import product
-from keras.models import Sequential, load_model
-
-from config import MODEL_PATH
+from keras.models import load_model
 from funcs import IsCoordValid, GetNumOfGettablePosition, GetField3dimOnehot
 
 
@@ -87,21 +85,22 @@ class PlayerMax(Player):
 
 # 訓練済みモデルから石を置く座標を決定するプレイヤープログラム
 class PlayerTrained(Player):
-    model = None  # type: Sequential
+    model = None
 
-    def execute_(self, field: np.ndarray) -> np.ndarray:
+    def execute_(self, field):
         field_size = self.get_field_size()
         coord_list = self.model.predict(GetField3dimOnehot(field))
 
-        coord_avg = np.average(coord_list)
-        coord_list = [i for i in coord_list[0] if coord_avg < i]
+        coord_max = np.max(coord_list)
+        coord_list = [i for i in coord_list[0] if coord_max == i]
 
         coord = coord_list[np.random.randint(len(coord_list))]
         coord = np.array([np.round(coord / field_size[1]), coord - np.round(coord / field_size[1]) * field_size[1]])
 
         return coord
 
-    def __init__(self, player_num: int, field_size: np.ndarray, player_name="Trained") -> None:
+    def __init__(self, player_num, field_size, player_name="Trained"):
         super(PlayerTrained, self).__init__(player_num, field_size, player_name=player_name)
 
-        self.model = load_model(MODEL_PATH)
+        model_path = "~/.reversi_nn/model.h5"
+        self.model = load_model(model_path)

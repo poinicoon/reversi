@@ -1,7 +1,5 @@
 import sys
 import numpy as np
-
-import config
 from field import Field
 from game import Game
 # from player import PlayerHuman
@@ -46,12 +44,6 @@ if __name__ == "__main__":
             y = np.concatenate([y, _y], axis=0)
     print()
 
-    '''
-    if not config.WORK_DIR.exists():
-        config.WORK_DIR.mkdir()
-    np.save(config.X_TRAIN_PATH, x)
-    np.save(config.Y_TRAIN_PATH, y)
-    '''
     np.save(x_train_path, x)
     np.save(y_train_path, y)
 
