@@ -5,56 +5,54 @@ from funcs import IsCoordInRange, IsEmptyCoordExist, IsCoordValid, IsPuttableCoo
 
 
 class Field:
-    __field = None  # type: np.ndarray
+    __field = None
 
-    def __set_value(self, coord: np.ndarray, value: int) -> None:
-        coord = coord.astype('int')
+    def __set_value(self, coord, value):
         self.__field[coord[0], coord[1]] = value
 
-    def get_value(self, coord: np.ndarray) -> int:
-        coord = coord.astype('int')
+    def get_value(self, coord):
         return int(self.__field[coord[0], coord[1]])
 
-    def get_field(self) -> np.ndarray:
+    def get_field(self):
         return self.__field
 
-    def get_field_size(self) -> np.ndarray:
-        return np.array(self.__field.shape)
+    def get_field_size(self):
+        return self.__field.shape
 
-    def is_coord_in_range(self, coord: np.ndarray) -> bool:
+    def is_coord_in_range(self, coord):
         return IsCoordInRange(self.__field, coord)
 
-    def is_empty_coord_exist(self) -> bool:
+    def is_empty_coord_exist(self):
         return IsEmptyCoordExist(self.__field)
 
-    def is_coord_valid(self, coord: np.ndarray, player_num: int) -> bool:
+    def is_coord_valid(self, coord, player_num):
         return IsCoordValid(self.__field, coord, player_num)
 
-    def is_puttable_coord_exist(self, player_num: int) -> bool:
+    def is_puttable_coord_exist(self, player_num):
         return IsPuttableCoordExist(self.__field, player_num)
 
-    def get_num_of_player_position(self, player_num: int) -> int:
+    def get_num_of_player_position(self, player_num):
         return GetNumOfPlayerPosition(self.__field, player_num)
 
-    def get_most_player_number(self) -> int:
+    def get_most_player_number(self):
         return GetMostPlayerNumber(self.__field)
 
-    def get_gettable_position_list(self, coord: np.ndarray, player_num: int) -> [np.ndarray]:
+    def get_gettable_position_list(self, coord, player_num):
         return GetGettablePositionList(self.__field, coord, player_num)
 
-    def get_num_of_gettable_position(self, coord: np.ndarray, player_num: int) -> int:
+    def get_num_of_gettable_position(self, coord, player_num):
         return GetNumOfGettablePosition(self.__field, coord, player_num)
 
-    def put(self, coord: np.ndarray, player_num: int) -> bool:
+    def put(self, coord, player_num):
         if self.is_coord_valid(coord, player_num):
-            put_coord_list = self.get_gettable_position_list(coord, player_num)  # type: [np.ndarray]
+            put_coord_list = self.get_gettable_position_list(coord, player_num)
             for i in range(len(put_coord_list)):
                 self.__set_value(put_coord_list[i], player_num)
             return True
         else:
             return False
 
-    def __init__(self, field_size: np.ndarray) -> None:
+    def __init__(self, field_size):
         ul = GetCenterCoord(field_size, 0)
         ur = GetCenterCoord(field_size, 1)
         dl = GetCenterCoord(field_size, 2)

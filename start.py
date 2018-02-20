@@ -5,22 +5,21 @@ from game import Game
 # from player import PlayerHuman, PlayerTrained, PlayerMax
 from player import PlayerRandom
 
+field_size = (6, 6)
 
-def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
-    field = Field(field_size)  # type: Field
+def play_game():
+    field = Field(field_size)
     players = (PlayerRandom(0, field_size), PlayerRandom(1, field_size))
 
-    game_ins = Game(field, players, show=True)  # type: Game
-    winner, fields, coords = game_ins.start()
+    game = Game(field, players, show=True)
+    winner, fields, coords = game.start()
 
     return winner, fields, coords
 
 
 if __name__ == "__main__":
-    # フィールドサイズ
-    field_size = np.array([6, 6])
 
-    winner, _, _ = play_game(field_size)
+    winner, _, _ = play_game()
 
     print("Winner: " + str(winner))
     print()

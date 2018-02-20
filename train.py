@@ -4,6 +4,8 @@ import numpy as np
 from keras.layers import Activation, BatchNormalization, Conv2D, Flatten, InputLayer, MaxPooling2D
 from keras.models import Sequential, load_model
 
+field_size = (6, 6)
+
 '''
 def make_model():
     model = Sequential()
@@ -23,7 +25,7 @@ def make_model():
 
 def make_model():
     model = Sequential()
-    model.add(InputLayer(input_shape=[6, 6, 3]))
+    model.add(InputLayer(input_shape=(field_size[0], field_size[1], 3)))
 
     model.add(Conv2D(64, (3, 3), padding='same'))
     model.add(Activation('relu'))
@@ -55,11 +57,7 @@ def train(model, x_train, y_train, x_test, y_test):
     batch_size = 64
     epochs = 100
 
-    history = model.fit(x_train,
-                        y_train,
-                        batch_size=batch_size,
-                        epochs=epochs,
-                        verbose=1)
+    history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1)
 
     score = model.evaluate(x_test, y_test, verbose=1)
 

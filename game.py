@@ -6,16 +6,16 @@ from player import Player
 
 
 class Game:
-    __field = None  # type: Field
-    __players = (None, None)  # type: (Player, Player)
+    __field = None
+    __players = (None, None)
 
-    __current_player_num = None  # type: int
-    __num_of_turn = None  # type: int
+    __current_player_num = None
+    __num_of_turn = None
 
-    __x = None  # type: [np.ndarray]
-    __y = None  # type: [np.ndarray]
+    __x = None
+    __y = None
 
-    __is_show_game = True
+    __is_show_game = None
 
     def reverse_player(self) -> None:
         self.__current_player_num = GetNextPlayer(self.__current_player_num)
@@ -27,7 +27,7 @@ class Game:
         if self.__is_show_game:
             print("" if values is None else values, end=end)
 
-    def start(self) -> (int, [np.ndarray], [np.ndarray]):
+    def start(self):
 
         self.print("Game start.")
 

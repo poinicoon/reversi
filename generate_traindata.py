@@ -7,8 +7,10 @@ from game import Game
 # from player import PlayerMax
 from player import PlayerRandom
 
+field_size = (6, 6)
 
-def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
+
+def play_game(field_size):
     field = Field(field_size)
     players = (PlayerRandom(0, field_size), PlayerRandom(1, field_size))
 
