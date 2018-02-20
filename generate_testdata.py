@@ -1,3 +1,7 @@
+'''
+テストデータを作成するためのプログラム。直接実行し、コマンドライン引数として、第1引数にテストデータXのファイル名、第2引数にテストデータYのファイル名を与える。
+'''
+
 import sys
 import numpy as np
 from funcs import GetTestCoord, Softmax

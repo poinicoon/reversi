@@ -1,3 +1,7 @@
+'''
+訓練データを作成するためのプログラム。直接実行し、コマンドライン引数として、第1引数に訓練データXのファイル名、第2引数に訓練データYのファイル名を与える。
+'''
+
 import sys
 import numpy as np
 from field import Field
