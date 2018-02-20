@@ -1,4 +1,8 @@
-import numpy as np
+'''
+ゲームを開始するプログラム。
+プレイヤープログラムをインポートし、players変数にセットする。
+盤面サイズは、field_size変数で設定する。
+'''
 
 from field import Field
 from game import Game

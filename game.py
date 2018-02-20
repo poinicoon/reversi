@@ -1,3 +1,8 @@
+'''
+ゲームの進行を管理するプログラム。
+直接起動せずに、プログラムから呼び出す。
+'''
+
 import numpy as np
 
 from funcs import GetCoordNum, GetField3dimOnehot, GetNextPlayer, GetNumOfPlayerPosition
