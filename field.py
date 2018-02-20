@@ -1,3 +1,7 @@
+'''
+盤面の管理をするプログラム。
+'''
+
 import numpy as np
 
 from funcs import IsCoordInRange, IsEmptyCoordExist, IsCoordValid, IsPuttableCoordExist, GetNumOfPlayerPosition, \
