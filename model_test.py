@@ -5,14 +5,14 @@
 import os
 import sys
 import numpy as np
-from keras.models import load_model
+import keras
 from modules.funcs import Field1ToField2
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 if __name__ == "__main__":
     model_path = sys.argv[1]
-    model = load_model(model_path)
+    model = keras.models.load_model(model_path)
 
     input = np.array([[0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0],
