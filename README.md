@@ -2,7 +2,7 @@
 
 ## start.py
 ゲームをスタートさせる。
-$ python3 start.py
+```$ python3 start.py```
 
 ## generate_model.py
 モデルを作成する。
