@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+"""
+訓練
+"""
+
 import sys
 import numpy as np
 from keras.models import load_model
@@ -21,7 +27,6 @@ def train(model, x_train, y_train, x_test, y_test):
 
 def main(model_path, x_train_path, y_train_path, x_test_path, y_test_path):
     model = load_model(model_path)
-
     x_train = np.load(x_train_path)
     y_train = np.load(y_train_path)
     x_test = np.load(x_test_path)
@@ -32,10 +37,4 @@ def main(model_path, x_train_path, y_train_path, x_test_path, y_test_path):
 
 
 if __name__ == "__main__":
-    model_path = sys.argv[1]
-    x_train_path = sys.argv[2]
-    y_train_path = sys.argv[3]
-    x_test_path = sys.argv[4]
-    y_test_path = sys.argv[5]
-
-    main(model_path, x_train_path, y_train_path, x_test_path, y_test_path)
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])

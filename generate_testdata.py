@@ -1,14 +1,18 @@
-'''
+# -*- coding: utf-8 -*-
+
+"""
 テストデータを作成するためのプログラム。
 コマンドラインから実行する。コマンドライン引数として、第1引数にテストデータXのファイル名、第2引数にテストデータYのファイル名を与える。
-'''
+"""
 
 import sys
 import numpy as np
-from module.funcs import GetTestCoord, Softmax
-from module.field import Field
-from module.game import Game
-from module.player import PlayerRandom
+from modules.funcs import GetTestCoord, Softmax
+from modules.field import Field
+from modules.game import Game
+from modules.player import PlayerRandom
+
+field_size = np.array([6, 6])
 
 
 def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
@@ -21,13 +25,7 @@ def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
     return x, y
 
 
-if __name__ == "__main__":
-
-    x_test_path = sys.argv[1]
-    y_test_path = sys.argv[2]
-
-    field_size = np.array([6, 6])
-
+def main(x_test_path, y_test_path):
     epoch = 10
 
     x = None
@@ -57,3 +55,7 @@ if __name__ == "__main__":
 
     print("Testdata length: " + str(len(y)))
     print()
+
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])

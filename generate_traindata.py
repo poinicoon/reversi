@@ -1,16 +1,18 @@
-'''
+# -*- coding: utf-8 -*-
+
+"""
 訓練データを作成するためのプログラム。
 コマンドラインから実行する。コマンドライン引数として、第1引数に訓練データXのファイル名、第2引数に訓練データYのファイル名を与える。
-'''
+"""
 
 import sys
 import numpy as np
-from module.field import Field
-from module.game import Game
+from modules.field import Field
+from modules.game import Game
 # from player import PlayerHuman
 # from player import PlayerTrained
 # from player import PlayerMax
-from module.player import PlayerRandom
+from modules.player import PlayerRandom
 
 field_size = (6, 6)
 
@@ -25,14 +27,7 @@ def play_game(field_size):
     return x, y
 
 
-if __name__ == "__main__":
-
-    x_train_path = sys.argv[1]
-    y_train_path = sys.argv[2]
-
-    # フィールドサイズ
-    field_size = np.array([6, 6])
-
+def main(x_train_path, y_train_path):
     epoch = 10
 
     x = None
@@ -56,3 +51,7 @@ if __name__ == "__main__":
 
     print("Traindata length: " + str(len(y)))
     print()
+
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])

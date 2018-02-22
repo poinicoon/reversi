@@ -1,11 +1,13 @@
-'''
+# -*- coding: utf-8 -*-
+
+"""
 ゲームの進行を管理するプログラム。
 直接起動せずに、プログラムから呼び出す。
-'''
+"""
 
 import numpy as np
 
-from module.funcs import GetCoordNum, GetField3dimOnehot, GetNextPlayer, GetNumOfPlayerPosition
+from modules.funcs import GetCoordNum, Field1ToField2, GetNextPlayer, GetNumOfPlayerPosition
 
 
 class Game:
@@ -58,7 +60,7 @@ class Game:
                 if put_result:
                     self.__players[self.__current_player_num].result_(True)
                     if self.__current_player_num == 1:
-                        self.__x.append(GetField3dimOnehot(tmp_field))
+                        self.__x.append(Field1ToField2(tmp_field))
                         self.__y.append(GetCoordNum(self.__field.get_field_size(), put_coord))
                 else:
                     self.__players[self.__current_player_num].result_(False)

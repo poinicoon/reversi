@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+"""
+モデルを作成する。
+"""
+
 import sys
 from keras.models import Sequential, InputLayer
 from keras.layers import Conv2D, Activation, BatchNormalization, MaxPooling2D, Flatten
@@ -6,7 +12,7 @@ field_size = (6, 6)
 
 
 def make_model():
-    '''
+    """
     model = Sequential()
     model.add(InputLayer(input_shape=(self.x_train.shape[1:])))
     model.add(Conv2D(64, self.x_train.shape[1:3], padding='same', activation='relu'))
@@ -17,7 +23,7 @@ def make_model():
     model.add(Activation('softmax'))
 
     model.compile(loss='categorical_crossentropy', optimizer="SGD", metrics=['accuracy'])
-    '''
+    """
 
     model = Sequential()
     model.add(InputLayer(input_shape=(field_size[0], field_size[1], 3)))
