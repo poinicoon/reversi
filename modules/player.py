@@ -3,8 +3,8 @@
 """
 
 import numpy as np
-from itertools import product
-from keras.models import load_model
+import itertools
+import keras
 from modules.funcs import IsCoordValid, GetNumOfGettablePosition, Field1ToField2
 
 
@@ -65,7 +65,7 @@ class PlayerRandom(Player):
 
         put_coord_list = []
 
-        for col, row in product(range(field.shape[0]), range(field.shape[1])):
+        for col, row in itertools.product(range(field.shape[0]), range(field.shape[1])):
             tmp_coord = np.array([col, row])
             if IsCoordValid(field, tmp_coord, self.get_player_number()):
                 put_coord_list.append(tmp_coord)
@@ -86,7 +86,7 @@ class PlayerMax(Player):
         max_num = 0
         max_pos = None
 
-        for col, row in product(range(field.shape[0]), range(field.shape[1])):
+        for col, row in itertools.product(range(field.shape[0]), range(field.shape[1])):
             tmp_num = GetNumOfGettablePosition(field, np.array([col, row]), self.get_player_number())
             if max_num < tmp_num:
                 max_num = tmp_num
@@ -120,4 +120,4 @@ class PlayerTrained(Player):
         super(PlayerTrained, self).__init__(player_num, field_size, player_name=player_name)
 
         model_path = "$HOME/.reversi_nn/model.h5"
-        self.model = load_model(model_path)
+        self.model = keras.models.load_model(model_path)
