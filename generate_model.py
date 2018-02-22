@@ -14,7 +14,7 @@ field_size = (6, 6)
 
 def make_model():
     model = Sequential()
-    model.add(InputLayer(input_shape=(6, 6)))
+    model.add(InputLayer(input_shape=field_size))
     model.add(Conv2D(64, (6, 6), padding='same', activation='relu'))
     model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
     model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
@@ -26,7 +26,9 @@ def make_model():
 
     return model
 
+def main(model_path):
+    model = make_model()
+    model.save(model_path)
 
 if __name__ == "__main__":
-    model_path = sys.argv[1]
-    make_model().save(model_path)
+    main(sys.argv[1])
