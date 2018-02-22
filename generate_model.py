@@ -15,7 +15,7 @@ field_size = (6, 6)
 def make_model():
     model = Sequential()
     model.add(InputLayer(input_shape=field_size))
-    model.add(Conv2D(64, (6, 6), padding='same', activation='relu'))
+    model.add(Conv2D(64, (5, 5), padding='same', activation='relu'))
     model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
     model.add(Conv2D(1, (1, 1), padding='same', activation='relu', use_bias=True))
     model.add(Flatten())
