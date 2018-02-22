@@ -15,9 +15,15 @@ from modules.player import PlayerRandom
 field_size = np.array([6, 6])
 
 
-def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
+def play_game():
+    '''
+    ゲームを開始させる。
+    :return: X, Y
+    '''
     field = Field(field_size)
-    players = (PlayerRandom(0, field_size), PlayerRandom(1, field_size))
+
+    players = (PlayerRandom(0, field_size),
+               PlayerRandom(1, field_size))
 
     game = Game(field, players)
     _, x, y = game.start()

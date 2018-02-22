@@ -15,7 +15,7 @@ class Player:
     __field_size = None
 
     def execute_(self, field):
-        return np.empty([2])
+        return (-1, -1)
 
     def result_(self, result):
         return

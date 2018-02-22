@@ -2,6 +2,7 @@
 
 """
 ゲームを開始するプログラム。
+利用したいプレイヤープログラムをインポートする。
 """
 
 from modules.field import Field
@@ -13,15 +14,27 @@ field_size = (6, 6)
 
 
 def play_game():
+    """
+    ゲームを開始する。
+    :param players: 使用したいプレイヤープログラムを格納する。
+    :return:
+    """
     field = Field(field_size)
-    players = (PlayerRandom(0, field_size), PlayerRandom(1, field_size))
 
-    game = Game(field, players, show=True)
+    players = (PlayerRandom(0, field_size),
+               PlayerRandom(1, field_size))
+
+    game = Game(field, players)
     winner, _, _ = game.start()
 
     return winner
 
 
-if __name__ == "__main__":
+def main():
+    winner = play_game()
     print("winner: ", end="")
-    print(play_game())
+    print(winner)
+
+
+if __name__ == "__main__":
+    main()
