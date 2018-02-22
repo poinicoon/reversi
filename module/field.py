@@ -4,7 +4,7 @@
 
 import numpy as np
 
-from funcs import IsCoordInRange, IsEmptyCoordExist, IsCoordValid, IsPuttableCoordExist, GetNumOfPlayerPosition, \
+from module.funcs import IsCoordInRange, IsEmptyCoordExist, IsCoordValid, IsPuttableCoordExist, GetNumOfPlayerPosition, \
     GetMostPlayerNumber, GetGettablePositionList, GetNumOfGettablePosition, GetCenterCoord, GetNextPlayer
 
 

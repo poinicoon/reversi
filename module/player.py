@@ -1,7 +1,7 @@
 import numpy as np
 from itertools import product
 from keras.models import load_model
-from funcs import IsCoordValid, GetNumOfGettablePosition, GetField3dimOnehot
+from module.funcs import IsCoordValid, GetNumOfGettablePosition, GetField3dimOnehot
 
 
 # プレイヤープログラムの基底クラス

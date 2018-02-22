@@ -5,9 +5,9 @@
 
 import numpy as np
 
-from funcs import GetCoordNum, GetField3dimOnehot, GetNextPlayer, GetNumOfPlayerPosition
-from field import Field
-from player import Player
+from module.funcs import GetCoordNum, GetField3dimOnehot, GetNextPlayer, GetNumOfPlayerPosition
+from module.field import Field
+from module.player import Player
 
 
 class Game:

@@ -5,10 +5,10 @@
 
 import sys
 import numpy as np
-from funcs import GetTestCoord, Softmax
-from field import Field
-from game import Game
-from player import PlayerRandom
+from module.funcs import GetTestCoord, Softmax
+from module.field import Field
+from module.game import Game
+from module.player import PlayerRandom
 
 
 def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):

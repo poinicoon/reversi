@@ -4,10 +4,10 @@
 盤面サイズは、field_size変数で設定する。
 '''
 
-from field import Field
-from game import Game
+from module.field import Field
+from module.game import Game
 # from player import PlayerHuman, PlayerTrained, PlayerMax
-from player import PlayerRandom
+from module.player import PlayerRandom
 
 field_size = (6, 6)
 

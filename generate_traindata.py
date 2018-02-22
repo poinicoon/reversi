@@ -5,12 +5,12 @@
 
 import sys
 import numpy as np
-from field import Field
-from game import Game
+from module.field import Field
+from module.game import Game
 # from player import PlayerHuman
 # from player import PlayerTrained
 # from player import PlayerMax
-from player import PlayerRandom
+from module.player import PlayerRandom
 
 field_size = (6, 6)
 

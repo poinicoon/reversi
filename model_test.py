@@ -2,7 +2,7 @@ import os
 import sys
 import numpy as np
 from keras.models import load_model
-from funcs import GetField3dimOnehot
+from module.funcs import GetField3dimOnehot
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
