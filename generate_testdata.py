@@ -51,12 +51,7 @@ if __name__ == "__main__":
         y.append(Softmax(GetTestCoord(x[i])))
 
     print()
-    '''
-    if not WORK_DIR.exists():
-        WORK_DIR.mkdir()
-    np.save(X_TEST_PATH, x)
-    np.save(Y_TEST_PATH, y)
-    '''
+
     np.save(x_test_path, x)
     np.save(y_test_path, y)
 
