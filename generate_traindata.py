@@ -17,11 +17,11 @@ from modules.player import PlayerRandom
 field_size = (6, 6)
 
 
-def play_game(field_size):
+def play_game():
     field = Field(field_size)
     players = (PlayerRandom(0, field_size), PlayerRandom(1, field_size))
 
-    game = Game(field, players)
+    game = Game(field, players, stdout=False)
     _, x, y = game.start()
 
     return x, y
@@ -37,7 +37,7 @@ def main(x_train_path, y_train_path):
     for i in range(epoch):
         progress = (i + 1) / (epoch / 100)
         print("\r{0}%".format(progress), end="")
-        _x, _y = play_game(field_size)
+        _x, _y = play_game()
         if i < 1:
             x = _x
             y = _y

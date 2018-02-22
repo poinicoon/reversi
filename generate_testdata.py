@@ -25,7 +25,7 @@ def play_game():
     players = (PlayerRandom(0, field_size),
                PlayerRandom(1, field_size))
 
-    game = Game(field, players)
+    game = Game(field, players, stdout=False)
     _, x, y = game.start()
 
     return x, y
@@ -41,7 +41,7 @@ def main(x_test_path, y_test_path):
     for i in range(epoch):
         progress = ((i + 1) / (epoch / 100)) / 2
         print("\r{0}%".format(progress), end="")
-        _x, _ = play_game(field_size)
+        _x, _ = play_game()
         if i < 1:
             x = _x
         else:

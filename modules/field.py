@@ -7,7 +7,8 @@
 import numpy as np
 
 from modules.funcs import IsCoordInRange, IsEmptyCoordExist, IsCoordValid, IsPuttableCoordExist, GetNumOfPlayerPosition, \
-    GetMostPlayerNumber, GetGettableCoordList, GetNumOfGettablePosition, GetCenterCoord, GetNextPlayer
+    GetMostPlayerNumber, GetGettableCoordList, GetNumOfGettablePosition, GetCenterCoord, GetNextPlayer, GetValue, \
+    SetValue
 
 
 class Field:
@@ -23,7 +24,7 @@ class Field:
         :param value: セットする値
         :return: なし
         """
-        self.__field[coord[0], coord[1]] = value
+        self.__field = SetValue(self.__field, coord, value)
 
     def get_value(self, coord):
         """
@@ -31,7 +32,7 @@ class Field:
         :param coord: 座標
         :return: 指定座標の値
         """
-        return int(self.__field[coord[0], coord[1]])
+        return GetValue(self.__field, coord)
 
     def get_field(self):
         """
@@ -137,8 +138,7 @@ class Field:
         dl = GetCenterCoord(field_size, 2)
         dr = GetCenterCoord(field_size, 3)
 
-        self.__field = np.empty(field_size)
-        self.__field.fill(-1)
+        self.__field = np.zeros(field_size)
 
         self.__set_value(ul, np.random.randint(2))
         self.__set_value(ur, GetNextPlayer(self.get_value(ul)))

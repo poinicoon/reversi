@@ -15,7 +15,19 @@ def GetValue(field, coord):
     :param coord: 座標
     :return: 値
     """
-    return int(field[coord[0], coord[1]])
+    return int(field[coord[0], coord[1]] - 1)
+
+
+def SetValue(field, coord, value):
+    """
+    盤面に値をセットする。
+    :param field: 盤面
+    :param coord: 座標
+    :param value: 値
+    :return: 値セット後の盤面
+    """
+    field[coord[0], coord[1]] = value + 1
+    return field
 
 
 def GetNextPlayer(player_num):
@@ -109,7 +121,7 @@ def GetNumOfPlayerPosition(field, player_num):
     :param player_num: プレイヤー番号
     :return: 石の数
     """
-    return field[field == player_num].size
+    return field[field == player_num + 1].size
 
 
 def IsEmptyCoordExist(field):
@@ -118,7 +130,7 @@ def IsEmptyCoordExist(field):
     :param field: 盤面
     :return: 真偽値
     """
-    return 0 < GetNumOfPlayerPosition(field, -1)
+    return 0 < field[field == 0].size
 
 
 def GetMostPlayerNumber(field):
@@ -134,7 +146,7 @@ def GetMostPlayerNumber(field):
     elif num_of_pos[0] < num_of_pos[1]:
         return 1
     else:
-        return 2
+        return -1
 
 
 def GetGettableCoordList(field, put_coord, player_num):
@@ -145,6 +157,7 @@ def GetGettableCoordList(field, put_coord, player_num):
     :param player_num: プレイヤー番号
     :return: 座標リスト
     """
+    empty = -1
     enemy_player_num = GetNextPlayer(player_num)
     field_max = max(field.shape)
 
@@ -157,13 +170,13 @@ def GetGettableCoordList(field, put_coord, player_num):
             if IsCoordInRange(field.shape, tmp_coord):
                 value = GetValue(field, tmp_coord)
                 if move_size == 0:
-                    if not value == -1:
+                    if not value == empty:
                         break
                 elif move_size == 1:
                     if not value == enemy_player_num:
                         break
                 else:
-                    if value == -1:
+                    if value == empty:
                         break
                     elif value == player_num:
                         if len(coord_list) == 0:
@@ -225,26 +238,26 @@ def GetCoordNum(field_size, coord):
 
 
 def Field1ToField2(field):
-    field3 = np.zeros([field.shape[0], field.shape[1], 3])
+    field2 = np.zeros([field.shape[0], field.shape[1], 3])
 
     for col, row in product(range(field.shape[0]), range(field.shape[1])):
-        field3[col, row, GetValue(field, np.array([col, row])) + 1] = 1
-
-    return field3
-
-
-def Field2ToField1(field):
-    field2 = np.zeros([field.shape[0], field.shape[1]])
-
-    for col, row in product(range(field.shape[0]), range(field.shape[1])):
-        if field[col, row, 1] == 1:
-            field2[col, row] = 0
-        elif field[col, row, 2] == 1:
-            field2[col, row] = 1
-        else:
-            field2[col, row] = -1
+        field2[col, row, GetValue(field, np.array([col, row])) + 1] = 1
 
     return field2
+
+
+def Field2ToField1(field2):
+    field = np.zeros([field2.shape[0], field2.shape[1]])
+
+    for col, row in product(range(field2.shape[0]), range(field2.shape[1])):
+        if field2[col, row, 0] == 1:
+            field[col, row] = -1
+        elif field2[col, row, 1] == 1:
+            field[col, row] = 0
+        elif field2[col, row, 2] == 1:
+            field[col, row] = 1
+
+    return field
 
 
 def GetTestCoord(field):
