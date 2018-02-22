@@ -26,7 +26,7 @@ def play_game(field_size: np.ndarray) -> (int, [np.ndarray], [np.ndarray]):
 
 
 def main(x_test_path, y_test_path):
-    epoch = 10
+    epoch = 1000
 
     x = None
 

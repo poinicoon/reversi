@@ -28,7 +28,7 @@ def play_game(field_size):
 
 
 def main(x_train_path, y_train_path):
-    epoch = 10
+    epoch = 1000
 
     x = None
     y = None
