@@ -58,8 +58,9 @@ class Game:
                 tmp_field = self.__field.get_field()
                 put_result = self.__field.put(put_coord, self.__current_player_num)
 
-                print(put_coord, end=" -> ")
-                print(put_result)
+                if self.__is_stdout:
+                    print(put_coord, end=" -> ")
+                    print(put_result)
 
                 if put_result:
                     self.__players[self.__current_player_num].result_(True)

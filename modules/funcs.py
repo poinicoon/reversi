@@ -251,11 +251,11 @@ def Field2ToField1(field2):
 
     for col, row in product(range(field2.shape[0]), range(field2.shape[1])):
         if field2[col, row, 0] == 1:
-            field[col, row] = -1
-        elif field2[col, row, 1] == 1:
             field[col, row] = 0
-        elif field2[col, row, 2] == 1:
+        elif field2[col, row, 1] == 1:
             field[col, row] = 1
+        elif field2[col, row, 2] == 1:
+            field[col, row] = 2
 
     return field
 
