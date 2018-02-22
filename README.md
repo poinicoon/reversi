@@ -1,13 +1,17 @@
 # CNNを利用してリバーシのルールを学習させるプログラム
 
 ## 動作環境
-# Pythonバージョン
-Python 3.5以上
-# Pythonパッケージ
-```numpy``` 1.14
-```h5py``` 2.7
-```tensorflow``` or ```tensorflow-gpu``` 1.5
-```keras``` 2.1
+### Pythonバージョン
+```Python``` 3.5以上
+
+### Pythonパッケージ
+```numpy``` 1.14以上
+
+```h5py``` 2.7以上
+
+```tensorflow``` or ```tensorflow-gpu``` 1.5以上
+
+```keras``` 2.1以上
 
 
 ## loop.sh
