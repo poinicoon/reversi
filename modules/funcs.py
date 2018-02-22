@@ -233,8 +233,7 @@ def GetCoordNum(field_size, coord):
     """
     coord_num = np.zeros(field_size)
     coord_num[coord[0], coord[1]] = 1
-    coord_num = coord_num.reshape([-1])
-    return coord_num
+    return coord_num.reshape([-1])
 
 
 def Field1ToField2(field):

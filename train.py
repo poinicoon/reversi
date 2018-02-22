@@ -7,7 +7,7 @@
 
 import sys
 import numpy as np
-from keras.models import load_model
+import keras
 
 field_size = (6, 6)
 
@@ -27,7 +27,7 @@ def train(model, x_train, y_train, x_test, y_test):
 
 
 def main(model_path, x_train_path, y_train_path, x_test_path, y_test_path):
-    model = load_model(model_path)
+    model = keras.models.load_model(model_path)
     x_train = np.load(x_train_path)
     y_train = np.load(y_train_path)
     x_test = np.load(x_test_path)
