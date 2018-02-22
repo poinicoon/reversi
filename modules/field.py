@@ -31,7 +31,7 @@ class Field:
         :param coord: 座標
         :return: 指定座標の値
         """
-        return self.__field[coord[0], coord[1]]
+        return int(self.__field[coord[0], coord[1]])
 
     def get_field(self):
         """

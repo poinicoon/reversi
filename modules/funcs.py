@@ -15,7 +15,7 @@ def GetValue(field, coord):
     :param coord: 座標
     :return: 値
     """
-    return field[coord[0], coord[1]]
+    return int(field[coord[0], coord[1]])
 
 
 def GetNextPlayer(player_num):
