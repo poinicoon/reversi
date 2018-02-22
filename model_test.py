@@ -17,7 +17,7 @@ if __name__ == "__main__":
                       [0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0]])
 
-    output = model.predict(Field1ToField2(input - 1).reshape([1, 6, 6, 3]))
+    output = model.predict(Field1ToField2(input).reshape([1, 6, 6, 3]))
     output = output.reshape(input.shape)
     output = np.round(output, 4)
 
