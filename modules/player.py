@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+プレイヤープログラム。
+"""
 
 import numpy as np
 from itertools import product
