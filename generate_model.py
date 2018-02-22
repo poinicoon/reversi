@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """
 モデルを作成する。
 """
@@ -26,9 +23,11 @@ def make_model():
 
     return model
 
+
 def main(model_path):
     model = make_model()
     model.save(model_path)
+
 
 if __name__ == "__main__":
     main(sys.argv[1])

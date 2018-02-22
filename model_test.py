@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""
+訓練済みモデルのテストをするプログラム。
+"""
 
 import os
 import sys
